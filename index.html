@@ -87,7 +87,28 @@ function $(id){return document.getElementById(id)}
 function toast(msg){const t=$('toast');t.textContent=msg;t.classList.remove('hidden');clearTimeout(window.__toastTimer);window.__toastTimer=setTimeout(()=>t.classList.add('hidden'),2800)}
 window.showScreen=id=>{document.querySelectorAll('main>section').forEach(s=>s.classList.add('hidden'));$(id).classList.remove('hidden');window.scrollTo(0,0)};
 window.go=id=>{showScreen(id);if(id==='choose')renderCareers();if(id==='learn')renderInstitutions();if(id==='opportunities')renderOpportunities();if(id==='myspace')renderMySpace();if(id==='plan')loadPlan()};
-function authMessage(e){const map={'auth/email-already-in-use':'Ese correo ya tiene una cuenta.','auth/invalid-email':'El correo no tiene un formato válido.','auth/weak-password':'La contraseña debe tener al menos 6 caracteres.','auth/invalid-credential':'El correo o la contraseña no coinciden.','auth/user-not-found':'No encontramos una cuenta con ese correo.','auth/wrong-password':'La contraseña es incorrecta.','auth/network-request-failed':'Revisa tu conexión a internet.','auth/too-many-requests':'Hubo muchos intentos. Espera un poco y vuelve a intentar.'};return map[e.code]||'No se pudo completar la operación. Inténtalo de nuevo.'}
+function authMessage(e){
+  const map={
+    'auth/email-already-in-use':'Ese correo ya tiene una cuenta.',
+    'auth/invalid-email':'El correo no tiene un formato válido.',
+    'auth/weak-password':'La contraseña debe tener al menos 6 caracteres.',
+    'auth/invalid-credential':'El correo o la contraseña no coinciden.',
+    'auth/user-not-found':'No encontramos una cuenta con ese correo.',
+    'auth/wrong-password':'La contraseña es incorrecta.',
+    'auth/network-request-failed':'Revisa tu conexión a internet.',
+    'auth/too-many-requests':'Hubo muchos intentos. Espera un poco.',
+    'auth/operation-not-allowed':'Firebase no tiene habilitado este método.',
+    'auth/unauthorized-domain':'El dominio no está autorizado.',
+    'auth/api-key-not-valid':'La clave de API no es válida.',
+    'auth/configuration-not-found':'Authentication no está configurado correctamente.',
+    'auth/requests-to-this-api-are-blocked':'La clave de API está bloqueando Firebase Authentication.'
+  };
+
+  return map[e.code] || (
+    'Error de Firebase: ' + (e.code || 'sin código') +
+    '. ' + (e.message || 'Revisa la configuración y la conexión.')
+  );
+ }
 window.registerAccount=async()=>{const email=$('regEmail').value.trim(),pass=$('regPass').value;if(!email||pass.length<6){$('regMsg').textContent='Escribe un correo válido y una contraseña de al menos 6 caracteres.';return}try{mode='account';await createUserWithEmailAndPassword(auth,email,pass);$('regMsg').textContent='¡Tu cuenta está creada!';}catch(e){$('regMsg').textContent=authMessage(e)}};
 window.loginAccount=async()=>{const email=$('loginEmail').value.trim(),pass=$('loginPass').value;if(!email||!pass){$('loginMsg').textContent='Escribe tu correo y contraseña.';return}try{mode='account';await signInWithEmailAndPassword(auth,email,pass)}catch(e){$('loginMsg').textContent=authMessage(e)}};
 window.sendReset=async()=>{const email=$('loginEmail').value.trim();if(!email){$('loginMsg').textContent='Escribe primero tu correo.';return}try{await sendPasswordResetEmail(auth,email);$('loginMsg').textContent='Te enviamos un enlace para restablecer tu contraseña. Revisa también Spam.'}catch(e){$('loginMsg').textContent=authMessage(e)}};
