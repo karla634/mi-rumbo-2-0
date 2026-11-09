@@ -5,6 +5,248 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#142b50">
+<meta name="description" content="Mi Rumbo: orientación vocacional y oportunidades académicas en Nicaragua.">
+<title>Mi Rumbo 2.0</title>
+
+<style>
+:root{
+ --azul:#142b50;--azul2:#244b7a;--azul3:#3971ac;
+ --hueso:#f7f3e9;--blanco:#fffdf8;--dorado:#e7bd55;
+ --texto:#263449;--gris:#687487;--borde:#e3dfd5;
+ --sombra:0 8px 25px rgba(20,43,80,.08);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--hueso);color:var(--texto);font-family:Arial,sans-serif;font-size:16px;line-height:1.6}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+.oculto{display:none!important}
+header{background:var(--azul);color:white;padding:13px 5%;display:flex;justify-content:space-between;align-items:center;gap:12px;position:sticky;top:0;z-index:50;box-shadow:0 3px 12px #0002}
+.marca{color:white;background:none;border:0;font-size:23px;font-weight:bold;letter-spacing:1px}
+.marca span{color:var(--dorado)}
+.menu{display:flex;flex-wrap:wrap;gap:7px}
+.menu button{color:white;background:transparent;border:1px solid #ffffff35;border-radius:8px;padding:8px 12px}
+.menu button:hover{background:var(--azul2)}
+.contenedor{max-width:1150px;margin:auto;padding:25px 18px 55px}
+.pantalla{display:none;animation:entrada .3s ease}
+.pantalla.activa{display:block}
+@keyframes entrada{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@keyframes flotar{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@keyframes aparecer{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:scale(1)}}
+@keyframes brillo{0%,100%{box-shadow:0 0 0 0 #e7bd5550}50%{box-shadow:0 0 0 9px #e7bd5500}}
+.hero{background:linear-gradient(125deg,var(--azul),var(--azul3));color:white;border-radius:22px;padding:clamp(28px,5vw,55px);margin:10px 0 30px;position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;width:210px;height:210px;border:1px solid #ffffff22;border-radius:50%;right:-65px;top:-70px;box-shadow:0 0 0 25px #ffffff08,0 0 0 55px #ffffff06}
+.hero h1{color:white;font-size:clamp(32px,5vw,49px);line-height:1.15;max-width:750px}
+.hero p{max-width:700px}
+.frase{color:var(--dorado);font-weight:bold}
+.etiqueta{color:var(--azul3);font-size:12px;font-weight:bold;letter-spacing:2px;text-transform:uppercase}
+h1,h2,h3{color:var(--azul);line-height:1.25}
+h2{font-size:clamp(25px,4vw,33px)}
+h3{font-size:19px}
+p{margin:8px 0 14px}
+.subtitulo{color:var(--gris);max-width:750px}
+.tarjeta{background:var(--blanco);border:1px solid var(--borde);border-radius:16px;padding:21px;box-shadow:var(--sombra);transition:transform .2s,box-shadow .2s}
+.tarjeta:hover{transform:translateY(-3px);box-shadow:0 12px 28px #142b5015}
+.tarjeta h3{margin-top:0}
+.cuadricula{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,235px),1fr));gap:17px}
+.paso{color:var(--azul3);font-size:12px;font-weight:bold;letter-spacing:1px}
+.boton{display:inline-block;background:var(--dorado);color:var(--azul);border:0;border-radius:9px;padding:11px 17px;font-weight:bold;text-decoration:none;margin:5px 4px 5px 0;transition:transform .18s,filter .18s}
+.boton:hover{filter:brightness(.95);transform:translateY(-2px)}
+.boton.azul{background:var(--azul2);color:white}
+.boton.claro{background:transparent;border:1px solid #b9c6d5;color:var(--azul)}
+.boton.pequeno{padding:8px 12px;font-size:14px}
+.boton-pantalla{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+.boton-pantalla button{border:1px solid #cbd3df;background:var(--blanco);color:var(--azul);padding:8px 12px;border-radius:8px}
+label{display:block;color:var(--azul);font-weight:bold;margin:12px 0 5px}
+input[type=text],input[type=search],input[type=date],textarea,select{width:100%;padding:11px;border:1px solid #cbd2dc;border-radius:8px;background:white;color:var(--texto)}
+textarea{min-height:100px;resize:vertical}
+.opcion{display:flex;align-items:flex-start;gap:8px;font-weight:normal;color:var(--texto);margin:9px 0}
+.opcion input{margin-top:6px;accent-color:var(--azul)}
+.aviso{background:#f0eadb;border-left:4px solid var(--dorado);border-radius:8px;padding:14px;margin:18px 0}
+.etiqueta-carrera{display:inline-block;background:#e8edf4;color:var(--azul2);border-radius:20px;padding:4px 10px;font-size:12px;font-weight:bold}
+.separador{border:0;border-top:1px solid var(--borde);margin:22px 0}
+.progreso{height:10px;background:#e2e7ed;border-radius:20px;overflow:hidden}
+.progreso span{display:block;height:100%;width:0;background:var(--dorado);transition:width .35s}
+.pie{background:var(--azul);color:white;text-align:center;padding:25px 15px}
+.pie strong{color:var(--dorado)}
+
+/* CUESTIONARIO */
+.test-caja{max-width:780px;margin:20px auto;background:var(--blanco);padding:clamp(20px,4vw,35px);border-radius:20px;box-shadow:var(--sombra);animation:aparecer .3s}
+.test-fase{color:var(--azul3);font-weight:bold;font-size:13px;letter-spacing:1px}
+.test-numero{display:flex;justify-content:space-between;color:var(--gris);font-size:13px;margin:10px 0}
+.pregunta{font-size:clamp(20px,4vw,27px);font-weight:bold;color:var(--azul);margin:25px 0}
+.respuesta-opcion{display:flex;align-items:center;gap:12px;padding:15px;margin:10px 0;border:2px solid var(--borde);border-radius:12px;cursor:pointer;transition:.2s}
+.respuesta-opcion:hover{border-color:var(--azul3);background:#f2f6fb}
+.respuesta-opcion.seleccionada{border-color:var(--azul3);background:#eaf1f9}
+.respuesta-opcion .simbolo{font-size:24px}
+.test-acciones{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:22px}
+.resultado-area{border:1px solid var(--borde);padding:17px;border-radius:13px;margin:12px 0;background:white}
+.resultado-area .puntos{font-size:13px;color:var(--gris)}
+.medidor{height:9px;background:#e7eaf0;border-radius:20px;margin-top:9px;overflow:hidden}
+.medidor span{display:block;height:100%;background:var(--azul3);border-radius:20px}
+.insignia{display:inline-block;background:#fff3cd;color:#775b13;padding:7px 12px;border-radius:30px;font-weight:bold;margin:4px;font-size:13px}
+.juego-opcion{display:block;width:100%;text-align:left;border:2px solid var(--borde);background:white;padding:15px;border-radius:12px;margin:10px 0;transition:.2s;color:var(--texto)}
+.juego-opcion:hover{border-color:var(--azul3);background:#edf3fa;transform:translateX(3px)}
+.juego-opcion.correcta{border-color:#39865a;background:#edf8f0}
+.juego-opcion.incorrecta{border-color:#c65c5c;background:#fff0f0}
+.juego-emoji{font-size:48px;animation:flotar 3s infinite}
+@media(max-width:700px){header{align-items:flex-start;flex-direction:column;padding:12px 15px}.menu{width:100%}.menu button{font-size:13px;padding:7px 9px}.contenedor{padding:18px 12px 40px}.hero{border-radius:16px}}
+.alto-contraste{--hueso:#fff;--blanco:#fff;--texto:#000;--azul:#000;--azul2:#000;--azul3:#000;--borde:#000}
+</style>
+</head>
+
+<body>
+<header>
+ <button class="marca" onclick="ir('inicio')">MI <span>RUMBO</span></button>
+ <nav class="menu">
+  <button onclick="ir('inicio')">Inicio</button>
+  <button onclick="ir('miEspacio')">Mi espacio</button>
+  <button onclick="ir('accesibilidad')">Accesibilidad</button>
+ </nav>
+</header>
+
+<main class="contenedor">
+
+<!-- BIENVENIDA -->
+<section id="bienvenida" class="pantalla activa">
+ <div class="hero">
+  <div class="etiqueta" style="color:#e7bd55">ORIENTACIÓN VOCACIONAL · NICARAGUA</div>
+  <h1>Tu camino comienza contigo.</h1>
+  <p class="frase">Conoce quién eres, para descubrir dónde vas.</p>
+  <p>Descubre tus intereses, explora carreras, conoce oportunidades académicas y comienza a construir tu futuro.</p>
+  <p>No necesitas tener todas las respuestas ahora. Puedes avanzar a tu propio ritmo.</p>
+  <button class="boton" onclick="ir('inicio')">Comenzar mi recorrido</button>
+  <button class="boton claro" onclick="ir('acerca')">Conocer Mi Rumbo</button>
+ </div>
+ <div class="aviso">Puedes utilizar Mi Rumbo sin registrarte. Tus respuestas se guardan en el navegador de este dispositivo.</div>
+</section>
+
+<!-- INICIO -->
+<section id="inicio" class="pantalla">
+ <div class="etiqueta">TU RECORRIDO</div>
+ <h2>Bienvenida/o a Mi Rumbo</h2>
+ <p class="subtitulo">Cinco pasos para explorar tus posibilidades y organizar tu futuro académico.</p>
+ <div class="cuadricula">
+  <article class="tarjeta"><span class="paso">PASO 01</span><h3>Conocerse</h3><p>Reconoce tus intereses, habilidades, fortalezas y preferencias.</p><button class="boton" onclick="ir('conocerse')">Comenzar</button></article>
+  <article class="tarjeta"><span class="paso">PASO 02</span><h3>Elegir</h3><p>Explora carreras, compara opciones y guarda tus favoritas.</p><button class="boton" onclick="ir('elegir')">Explorar</button></article>
+  <article class="tarjeta"><span class="paso">PASO 03</span><h3>Informarse</h3><p>Consulta universidades, institutos y sus fuentes oficiales.</p><button class="boton" onclick="ir('informarse')">Consultar</button></article>
+  <article class="tarjeta"><span class="paso">PASO 04</span><h3>Encontrar oportunidades</h3><p>Explora becas, cursos y formación técnica.</p><button class="boton" onclick="ir('oportunidades')">Descubrir</button></article>
+  <article class="tarjeta"><span class="paso">PASO 05</span><h3>Planificar</h3><p>Organiza tus metas y los pasos para alcanzarlas.</p><button class="boton" onclick="ir('planificar')">Crear mi plan</button></article>
+  <article class="tarjeta"><span class="paso">ESPACIO PERSONAL</span><h3>Mi espacio</h3><p>Consulta tus respuestas, favoritas y progreso.</p><button class="boton" onclick="ir('miEspacio')">Entrar</button></article>
+  <article class="tarjeta"><span class="paso">APRENDER JUGANDO</span><h3>Mi Rumbo Play</h3><p>Participa en desafíos y juegos de orientación.</p><button class="boton" onclick="ir('play')">Jugar</button></article>
+  <article class="tarjeta"><span class="paso">INFORMACIÓN</span><h3>Acerca de Mi Rumbo</h3><p>Conoce el propósito de esta plataforma.</p><button class="boton" onclick="ir('acerca')">Conocer más</button></article>
+ </div>
+</section>
+
+<!-- CONOCERSE -->
+<section id="conocerse" class="pantalla">
+ <div class="boton-pantalla"><button onclick="ir('inicio')">← Inicio</button><button onclick="ir('elegir')">Siguiente paso →</button></div>
+ <div class="etiqueta">PASO 01 · AUTOCONOCIMIENTO</div>
+ <h2>Descubre tu rumbo</h2>
+ <p class="subtitulo">Responde con sinceridad. No existen respuestas buenas ni malas. Tus elecciones nos ayudarán a reconocer las áreas profesionales que podrías explorar.</p>
+
+ <div id="introduccionTest" class="tarjeta">
+  <div class="juego-emoji">🧭</div>
+  <h3>¿Qué camino podría conectar contigo?</h3>
+  <p>Este recorrido está inspirado en el modelo CHASIDE. Explorarás dos dimensiones: tus intereses y tus aptitudes. Al terminar, recibirás una orientación con tus áreas predominantes y algunas carreras relacionadas.</p>
+  <div class="aviso"><strong>Importante:</strong> esta es una adaptación educativa orientativa, no el test oficial CHASIDE ni una evaluación psicométrica profesional.</div>
+  <p><strong>El recorrido tiene dos partes:</strong></p>
+  <p>① Intereses: actividades y temas que llaman tu atención.</p>
+  <p>② Aptitudes: actividades que reconoces como fortalezas o que se te facilitan.</p>
+  <button class="boton" onclick="iniciarTest()">Comenzar cuestionario</button>
+ </div>
+
+ <div id="zonaTest" class="test-caja oculto">
+  <div class="test-fase" id="faseTest">PARTE 1 · INTERESES</div>
+  <div class="test-numero"><span id="numeroPregunta">Pregunta 1</span><span id="totalPreguntas">1 de 42</span></div>
+  <div class="progreso"><span id="avanceTest"></span></div>
+  <div class="pregunta" id="textoPregunta"></div>
+  <div id="opcionesTest">
+   <button class="respuesta-opcion" onclick="responderTest(true)"><span class="simbolo">👍</span><span>Sí, me interesa o me identifico.</span></button>
+   <button class="respuesta-opcion" onclick="responderTest(false)"><span class="simbolo">👎</span><span>No, no me interesa o no me identifico.</span></button>
+  </div>
+  <div class="test-acciones">
+   <button class="boton claro" onclick="preguntaAnterior()">← Anterior</button>
+   <button class="boton azul" onclick="siguientePregunta()">Continuar →</button>
+  </div>
+  <p id="avisoTest" aria-live="polite"></p>
+ </div>
+
+ <div id="resultadoTest" class="tarjeta oculto">
+  <div class="juego-emoji">🌟</div>
+  <div class="etiqueta">TU ORIENTACIÓN VOCACIONAL</div>
+  <h2>¡Ya tienes un punto de partida!</h2>
+  <p>Estas son las áreas que obtuvieron mayor puntuación según tus respuestas.</p>
+  <div id="resumenResultado"></div>
+  <div class="aviso" id="explicacionResultado"></div>
+  <h3>Carreras que podrías explorar</h3>
+  <div id="carrerasResultado" class="cuadricula"></div>
+  <button class="boton" onclick="guardarResultadoTest()">Guardar mis resultados</button>
+  <button class="boton azul" onclick="ir('elegir')">Explorar carreras</button>
+  <button class="boton claro" onclick="reiniciarTest()">Volver a realizar el cuestionario</button>
+  <p id="mensajeResultado"></p>
+ </div>
+
+ <hr class="separador">
+ <div class="cuadricula">
+  <article class="tarjeta">
+   <h3>Mis fortalezas</h3>
+   <p>¿Con cuáles cualidades te identificas?</p>
+   <div id="fortalezas">
+    <label class="opcion"><input type="checkbox" value="Responsabilidad">Responsabilidad</label>
+    <label class="opcion"><input type="checkbox" value="Perseverancia">Perseverancia</label>
+    <label class="opcion"><input type="checkbox" value="Empatía">Empatía</label>
+    <label class="opcion"><input type="checkbox" value="Paciencia">Paciencia</label>
+    <label class="opcion"><input type="checkbox" value="Creatividad">Creatividad</label>
+    <label class="opcion"><input type="checkbox" value="Liderazgo">Liderazgo</label>
+    <label class="opcion"><input type="checkbox" value="Adaptabilidad">Adaptabilidad</label>
+   </div>
+   <button class="boton pequeno" onclick="guardarChecks('fortalezas')">Guardar fortalezas</button>
+  </article>
+  <article class="tarjeta">
+   <h3>Mis preferencias</h3>
+   <label for="ambiente">¿En qué ambiente te gustaría trabajar?</label>
+   <select id="ambiente"><option value="">Selecciona</option><option>Con personas</option><option>Con datos e información</option><option>Con tecnología</option><option>Al aire libre</option><option>De forma creativa</option><option>Combinando actividades</option></select>
+   <label for="equipo">¿Cómo prefieres trabajar?</label>
+   <select id="equipo"><option value="">Selecciona</option><option>Individualmente</option><option>En equipo</option><option>De ambas maneras</option></select>
+   <button class="boton pequeno" onclick="guardarPreferencias()">Guardar preferencias</button>
+  </article>
+  <article class="tarjeta">
+   <h3>Mi reflexión personal</h3>
+   <label for="reflexion">¿Qué te gustaría lograr en los próximos años?</label>
+   <textarea id="reflexion" placeholder="Escribe tus ideas..."></textarea>
+   <label for="dudas">¿Qué dudas tienes sobre tu futuro académico?</label>
+   <textarea id="dudas" placeholder="Puedes expresarte libremente..."></textarea>
+   <button class="boton pequeno" onclick="guardarReflexion()">Guardar reflexión</button>
+  </article>
+ </div>
+</section>
+
+<!-- ELEGIR -->
+<section id="elegir" class="pantalla">
+ <div class="boton-pantalla"><button onclick="ir('inicio')">← Inicio</button><button onclick="ir('informarse')">Siguiente paso →</button></div>
+ <div class="etiqueta">PASO 02</div><h2>Elegir: explora carreras</h2>
+ <p class="subtitulo">Investiga diferentes áreas profesionales. Puedes guardar las carreras que despierten tu interés y compararlas.</p>
+ <input id="buscarCarrera" type="search" placeholder="Buscar una carrera..." oninput="filtrarCarreras()">
+ <div class="cuadricula" id="listaCarreras">
+  <article class="tarjeta carrera"><span class="etiqueta-carrera">Salud y bienestar</span><h3>Psicología</h3><p>Estudia el comportamiento humano, los procesos mentales, las emociones y las relaciones.</p><label class="opcion"><input type="checkbox" class="comparar" value="Psicología">Añadir a comparación</label><button class="boton pequeno" onclick="favorita('Psicología')">☆ Favorita</button></article>
+  <article class="tarjeta carrera"><span class="etiqueta-carrera">Salud y bienestar</span><h3>Medicina</h3><p>Se relaciona con la salud, la prevención y la atención de enfermedades.</p><label class="opcion"><input type="checkbox" class="comparar" value="Medicina">Añadir a comparación</label><button class="boton pequeno" onclick="favorita('Medicina')">☆ Favorita</button></article>
+  <article class="tarjeta carrera"><span class="etiqueta-carrera">Ciencias sociales</span><h3>Trabajo Social</h3><p>Promueve el bienestar social y acompaña a personas y comunidades.</p><label class="opcion"><input type="checkbox" class="comparar" value="Trabajo Social">Añadir a comparación</label><button class="boton pequeno" onclick="favorita('Trabajo Social')">☆ Favorita</button></article>
+  <article class="tarjeta carrera"><span class="etiqueta-carrera">Ciencias sociales</span><h3>Derecho</h3><p>Estudia las leyes, la justicia y las normas que regulan la sociedad.</p><label class="opcion"><input type="checkbox" class="comparar" value="Derecho">Añadir a comparación</label><button class="boton pequeno" onclick="favorita('Derecho')">☆ Favorita</button></article>
+  <article class="tarjeta carrera"><span class="etiqueta-carrera">Tecnología</span><h3>Ingeniería en Sistemas</h3><p>Explora el desarrollo de software y las soluciones tecnológicas.</p><label class="opcion"><input type="checkbox" class="comparar" value="Ingeniería en Sistemas">Añadir a comparación</label><button class="boton pequeno" onclick="favorita('Ingeniería en Sistemas')">☆ Favorita</button></article>
+  <article class="tarjeta carrera"><span class="etiqueta-carrera">Gestión y negocios</span><h3>Administración de Empresas</h3><p>Se relaciona con la organización y dirección de empresas y proyectos.</p><label class="opcion"><input type="checkbox" class="comparar" value="Administración de Empresas">Añadir a comparación</label><button class="boton pequeno" onclick="favorita('Administración de Empresas')">☆ Favorita</button></article>
+  <article class="tarjeta carrera"><span class="etiqueta-carrera">Educación</span><h3>Ciencias de la Educación</h3><p>Estudia los procesos de enseñanza, aprendizaje y formación.</p><label class="opcion"><input type="checkbox" class="comparar" value="Ciencias de la Educación">Añadir a comparación</label><button class="boton pequeno" onclick="favorita('Ciencias de la Educación')">☆ Favorita</button></article>
+  <article class="tarjeta carrera"><span class="etiqueta-carrera">Agro y ambiente</span><h3>Ingeniería Agronómica</h3><p>Estudia la producción agrícola y el manejo de recursos naturales.</p><label class="opcion"><input type="checkbox" class="comparar" value="Ingeniería Agronómica">Añadir a comparación</label><button class="boton pequeno" onclick="favorita('Ingeniería Agronómica')">☆ Favorita</button></article>
+  <article class="tarjeta carrera"><span class="etiqueta-carrera">Agro y ambiente</span><h3>Medicina Veterinaria</h3><p>Estudia la salud y el bienestar de los animales.</p><label class="opcion"><input type="checkbox" class="comparar" value="Medicina Veterinaria">Añadir a comparación</label><button class="boton pequeno" onclick="favorita('Medicina Veterinaria')">☆ Favorita</button></article>
+  <article class="tarjeta carrera"><span class="etiqueta-carrera">Ciencias</span><h3>Biología</h3><p>Investiga los seres vivos y su relación con el ambiente.</p><label class="opcion"><input type="checkbox" class="comparar" value="Biología">Añadir a comparación</label><button class="boton pequeno" onclick="favorita('Biología')">☆ Favorita</button></article>
+ </div>
+ <div class="tarjeta" style="margin-top:20px"><h3>Comparar mis opciones</h3><p>Selecciona las carreras que deseas revisar juntas.</p><button class="boton" onclick="compararCarreras()">Compara
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#142b50">
 <title>Mi Rumbo 2.0 | Orientación vocacional</title>
 <style>
 :root {
