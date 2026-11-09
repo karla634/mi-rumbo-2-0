@@ -5,6 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#142b50">
+<meta name="description" content="Mi Rumbo: orientación vocacional y oportunidades académicas para jóvenes de Nicaragua.">
 <title>Mi Rumbo 2.0</title>
 
 <style>
@@ -15,6 +16,11 @@
   --hueso: #f7f3e9;
   --blanco: #fffdf8;
   --dorado: #e7bd55;
+  --texto: #24364d;
+  --suave: #66758a;
+  --borde: #e5dfd1;
+  --sombra: 0 7px 24px rgba(20,43,80,.08);
+  --letra: 16px;
 }
 
 * {
@@ -26,82 +32,122 @@
 body {
   font-family: Arial, sans-serif;
   background: var(--hueso);
-  color: var(--azul);
+  color: var(--texto);
+  font-size: var(--letra);
   line-height: 1.6;
 }
 
-button {
+button, input, textarea, select {
   font: inherit;
+}
+
+button {
   cursor: pointer;
 }
 
-.bienvenida {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 25px;
-  background: linear-gradient(145deg, var(--azul), var(--azul2));
-  color: var(--blanco);
-  text-align: center;
-}
-
-.contenido-bienvenida {
-  max-width: 650px;
-}
-
-.logo-texto {
-  font-size: 19px;
-  font-weight: bold;
-  letter-spacing: 5px;
-  color: var(--dorado);
-  margin-bottom: 35px;
-}
-
-.bienvenida h1 {
-  font-size: clamp(38px, 8vw, 65px);
-  margin-bottom: 15px;
-}
-
-.bienvenida h2 {
-  font-size: clamp(19px, 4vw, 27px);
-  font-weight: normal;
-  color: var(--dorado);
-  margin-bottom: 22px;
-}
-
-.bienvenida p {
-  font-size: 17px;
-  margin-bottom: 30px;
-  color: var(--blanco);
-}
-
-.boton-principal {
-  background: var(--dorado);
-  color: var(--azul);
-  border: none;
-  padding: 14px 30px;
-  border-radius: 30px;
-  font-weight: bold;
-  transition: 0.2s;
-}
-
-.boton-principal:hover {
-  transform: translateY(-2px);
-}
-
-#plataforma {
-  display: none;
-  min-height: 100vh;
+button:focus-visible, input:focus-visible,
+textarea:focus-visible, select:focus-visible {
+  outline: 3px solid var(--dorado);
+  outline-offset: 3px;
 }
 
 header {
   background: var(--azul);
   color: var(--blanco);
-  padding: 20px 6%;
+  padding: 17px 6%;
 }
 
 .encabezado {
+  max-width: 1150px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.marca {
+  font-size: 25px;
+  font-weight: bold;
+  letter-spacing: 3px;
+}
+
+.marca span {
+  color: var(--dorado);
+}
+
+.frase-header {
+  color: #e9e5db;
+  font-size: 14px;
+}
+
+.bienvenida {
+  min-height: 88vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 20px;
+  text-align: center;
+  color: var(--blanco);
+  background: linear-gradient(145deg, var(--azul), var(--azul2));
+}
+
+.bienvenida-contenido {
+  max-width: 700px;
+}
+
+.logo-texto {
+  color: var(--dorado);
+  font-size: 22px;
+  font-weight: bold;
+  letter-spacing: 7px;
+  margin-bottom: 35px;
+}
+
+.bienvenida h1 {
+  font-size: clamp(35px, 7vw, 59px);
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+
+.bienvenida h2 {
+  color: var(--dorado);
+  font-weight: normal;
+  font-size: clamp(20px, 4vw, 28px);
+  margin-bottom: 20px;
+}
+
+.bienvenida p {
+  max-width: 590px;
+  margin: auto auto 30px;
+  color: #f0eee8;
+}
+
+.boton-principal {
+  background: var(--dorado);
+  color: var(--azul);
+  border: 0;
+  border-radius: 30px;
+  padding: 14px 28px;
+  font-weight: bold;
+}
+
+.boton-principal:hover {
+  filter: brightness(1.06);
+}
+
+#aplicacion {
+  display: none;
+}
+
+.menu {
+  background: var(--azul2);
+  padding: 10px 6%;
+  color: white;
+}
+
+.menu-contenido {
   max-width: 1150px;
   margin: auto;
   display: flex;
@@ -111,170 +157,373 @@ header {
   gap: 12px;
 }
 
-.marca {
-  font-size: 23px;
-  font-weight: bold;
-  letter-spacing: 2px;
-}
-
-.marca span {
-  color: var(--dorado);
-}
-
-nav {
-  background: var(--azul2);
-  padding: 12px 5%;
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-nav button {
-  border: none;
+.menu button {
+  border: 0;
   background: transparent;
-  color: var(--blanco);
-  padding: 10px 15px;
-  border-radius: 20px;
-  font-size: 14px;
+  color: white;
+  padding: 9px 15px;
+  border-radius: 22px;
 }
 
-nav button:hover,
-nav button.activo {
+.menu button:hover,
+.menu button.activo {
   background: var(--dorado);
   color: var(--azul);
 }
 
+.menu-secundario {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
 main {
-  max-width: 1100px;
+  max-width: 1150px;
   margin: auto;
-  padding: 45px 20px;
+  padding: 35px 20px 55px;
+}
+
+.pagina {
+  display: none;
+}
+
+.pagina.visible {
+  display: block;
+  animation: aparecer .25s ease;
+}
+
+@keyframes aparecer {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .presentacion {
   text-align: center;
-  margin-bottom: 40px;
+  margin: 12px auto 35px;
 }
 
 .presentacion h1 {
-  font-size: clamp(27px, 5vw, 40px);
+  font-size: clamp(27px, 5vw, 39px);
+  color: var(--azul);
   margin-bottom: 10px;
 }
 
 .presentacion p {
-  color: #53647a;
-  font-size: 17px;
+  color: var(--suave);
+  max-width: 700px;
+  margin: auto;
+}
+
+.titulo-seccion {
+  color: var(--azul);
+  font-size: clamp(25px, 4vw, 34px);
+  margin-bottom: 10px;
+}
+
+.descripcion {
+  color: var(--suave);
+  margin-bottom: 25px;
 }
 
 .tarjetas {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px;
+  gap: 19px;
 }
 
 .tarjeta {
   background: var(--blanco);
-  padding: 25px;
-  border-radius: 16px;
-  border: 1px solid #e5dfd1;
-  box-shadow: 0 5px 18px rgba(20,43,80,0.06);
-  transition: 0.2s;
+  padding: 24px;
+  border-radius: 17px;
+  border: 1px solid var(--borde);
+  box-shadow: var(--sombra);
 }
 
 .tarjeta:hover {
-  transform: translateY(-4px);
+  border-color: var(--dorado);
 }
 
-.numero {
+.tarjeta .numero {
   color: var(--azul3);
-  font-size: 14px;
+  font-size: 13px;
   font-weight: bold;
+  letter-spacing: 1px;
 }
 
 .tarjeta h2 {
+  color: var(--azul);
   font-size: 21px;
   margin: 10px 0;
 }
 
 .tarjeta p {
-  color: #59677a;
+  color: var(--suave);
   font-size: 15px;
   margin-bottom: 18px;
 }
 
-.tarjeta button {
+.boton {
+  border: 0;
   background: var(--azul2);
   color: white;
-  border: none;
-  padding: 10px 17px;
-  border-radius: 20px;
+  padding: 11px 18px;
+  border-radius: 22px;
 }
 
-.tarjeta button:hover {
+.boton:hover {
   background: var(--azul3);
 }
 
-.seccion {
-  display: none;
+.boton-dorado {
+  background: var(--dorado);
+  color: var(--azul);
+  font-weight: bold;
+}
+
+.boton-claro {
+  background: #e9edf3;
+  color: var(--azul);
+}
+
+.bloque {
   background: var(--blanco);
-  padding: 35px;
+  border: 1px solid var(--borde);
   border-radius: 16px;
-  border: 1px solid #e5dfd1;
+  padding: 25px;
+  margin-bottom: 20px;
+  box-shadow: var(--sombra);
 }
 
-.seccion.visible {
-  display: block;
-}
-
-.seccion h1 {
+.bloque h2 {
+  color: var(--azul);
   margin-bottom: 12px;
 }
 
-.seccion p {
-  color: #53647a;
-  margin-bottom: 15px;
+.bloque p {
+  color: var(--suave);
+  margin-bottom: 12px;
 }
 
-.volver {
-  background: var(--azul2);
-  color: white;
-  border: none;
-  padding: 11px 20px;
+.lista-actividades {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 15px;
+}
+
+.actividad {
+  background: var(--blanco);
+  border: 1px solid var(--borde);
+  padding: 20px;
+  border-radius: 14px;
+}
+
+.actividad h3 {
+  color: var(--azul);
+  margin-bottom: 8px;
+}
+
+.campo {
+  margin: 15px 0;
+}
+
+.campo label {
+  display: block;
+  font-weight: bold;
+  color: var(--azul);
+  margin-bottom: 6px;
+}
+
+.campo input,
+.campo textarea,
+.campo select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #cbd2dc;
+  border-radius: 9px;
+  background: white;
+  color: var(--texto);
+}
+
+.campo textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.opciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.opcion {
+  display: inline-flex;
+  gap: 7px;
+  align-items: center;
+  background: #eef1f5;
   border-radius: 20px;
-  margin-top: 15px;
+  padding: 9px 13px;
+  cursor: pointer;
+}
+
+.opcion input {
+  accent-color: var(--azul3);
+}
+
+.aviso {
+  background: #f3edda;
+  border-left: 4px solid var(--dorado);
+  padding: 15px;
+  border-radius: 8px;
+  color: var(--azul);
+  margin: 17px 0;
+}
+
+.resultado {
+  background: #eaf0f7;
+  border-radius: 12px;
+  padding: 18px;
+  margin-top: 17px;
+  display: none;
+}
+
+.resultado.visible {
+  display: block;
+}
+
+.etiqueta {
+  display: inline-block;
+  background: #e8edf4;
+  color: var(--azul2);
+  border-radius: 20px;
+  padding: 5px 11px;
+  font-size: 13px;
+  margin: 4px;
+}
+
+.progreso-fondo {
+  height: 13px;
+  background: #e2e5e9;
+  border-radius: 20px;
+  overflow: hidden;
+  margin: 12px 0;
+}
+
+.progreso-barra {
+  height: 100%;
+  width: 0;
+  background: var(--azul3);
+  transition: width .3s;
+}
+
+.perfil-avatar {
+  font-size: 55px;
+  margin: 10px 0;
+}
+
+.avatares {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.avatar-opcion {
+  font-size: 30px;
+  background: #edf0f5;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  padding: 10px;
+}
+
+.avatar-opcion.seleccionado {
+  border-color: var(--dorado);
+}
+
+.lista-resultados {
+  padding-left: 22px;
+  color: var(--suave);
+}
+
+.lista-resultados li {
+  margin-bottom: 8px;
 }
 
 footer {
-  text-align: center;
-  padding: 25px;
   background: var(--azul);
   color: var(--blanco);
-  font-size: 14px;
-  margin-top: 50px;
+  padding: 28px 20px;
+  text-align: center;
 }
 
-@media (max-width: 600px) {
+footer p {
+  margin: 5px;
+}
+
+footer .lema {
+  color: var(--dorado);
+}
+
+.acciones {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 17px;
+}
+
+.oculto {
+  display: none !important;
+}
+
+@media(max-width: 650px) {
+  header {
+    padding: 15px;
+  }
+
   .encabezado {
     justify-content: center;
     text-align: center;
   }
 
-  nav {
-    justify-content: flex-start;
-    flex-wrap: nowrap;
-    overflow-x: auto;
+  .menu-contenido {
+    justify-content: center;
   }
 
-  nav button {
-    white-space: nowrap;
+  .menu-secundario {
+    justify-content: center;
   }
 
   main {
-    padding: 30px 15px;
+    padding: 25px 14px 40px;
   }
 
-  .seccion {
-    padding: 23px;
+  .bloque {
+    padding: 19px;
+  }
+
+  .bienvenida {
+    min-height: 90vh;
+  }
+}
+
+body.contraste {
+  --hueso: #ffffff;
+  --blanco: #ffffff;
+  --texto: #000000;
+  --suave: #222222;
+  --borde: #555555;
+}
+
+body.grande {
+  --letra: 19px;
+}
+
+body.pequena {
+  --letra: 14px;
+}
+
+@media(prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
   }
 }
 </style>
@@ -282,11 +531,13 @@ footer {
 
 <body>
 
+<!-- BIENVENIDA -->
+
 <section class="bienvenida" id="bienvenida">
-  <div class="contenido-bienvenida">
+  <div class="bienvenida-contenido">
     <div class="logo-texto">MI RUMBO</div>
 
-    <h1>Bienvenido a Mi Rumbo</h1>
+    <h1>¡Hola, bienvenido/a!</h1>
 
     <h2>Conoce quién eres, para descubrir dónde vas.</h2>
 
@@ -301,27 +552,38 @@ footer {
   </div>
 </section>
 
-<div id="plataforma">
+<!-- APLICACIÓN -->
+
+<div id="aplicacion">
 
 <header>
   <div class="encabezado">
     <div class="marca">MI <span>RUMBO</span></div>
-    <p>Tu futuro comienza con conocerte.</p>
+    <div class="frase-header">Tu camino comienza contigo.</div>
   </div>
 </header>
 
-<nav aria-label="Navegación principal">
-  <button class="activo" onclick="mostrarInicio(this)">Inicio</button>
-  <button onclick="mostrarSeccion('conocerse', this)">Conocerse</button>
-  <button onclick="mostrarSeccion('elegir', this)">Elegir</button>
-  <button onclick="mostrarSeccion('informarse', this)">Informarse</button>
-  <button onclick="mostrarSeccion('oportunidades', this)">Oportunidades</button>
-  <button onclick="mostrarSeccion('planificar', this)">Planificar</button>
-</nav>
+<!-- NAVEGACIÓN PRINCIPAL: SOLO INICIO -->
+
+<div class="menu">
+  <div class="menu-contenido">
+    <button class="activo" onclick="irA('inicio',this)">⌂ Inicio</button>
+
+    <div class="menu-secundario">
+      <button onclick="irA('mi-espacio')">Mi espacio</button>
+      <button onclick="irA('play')">Mi Rumbo Play</button>
+      <button onclick="irA('accesibilidad')">Accesibilidad</button>
+      <button onclick="irA('acerca')">Acerca de</button>
+    </div>
+  </div>
+</div>
 
 <main>
 
-<div id="inicio">
+<!-- INICIO -->
+
+<section class="pagina visible" id="inicio">
+
   <div class="presentacion">
     <h1>Este es tu camino. ¡Descúbrelo!</h1>
     <p>
@@ -336,126 +598,286 @@ footer {
       <div class="numero">PASO 01</div>
       <h2>Conocerse</h2>
       <p>Descubre tus intereses, habilidades, fortalezas y preferencias.</p>
-      <button onclick="mostrarSeccion('conocerse')">Explorar</button>
+      <button class="boton" onclick="irA('conocerse')">Comenzar</button>
     </article>
 
     <article class="tarjeta">
       <div class="numero">PASO 02</div>
       <h2>Elegir</h2>
       <p>Explora carreras y compara diferentes posibilidades profesionales.</p>
-      <button onclick="mostrarSeccion('elegir')">Explorar</button>
+      <button class="boton" onclick="irA('elegir')">Explorar</button>
     </article>
 
     <article class="tarjeta">
       <div class="numero">PASO 03</div>
       <h2>Informarse</h2>
       <p>Conoce universidades, carreras y opciones de estudio en Nicaragua.</p>
-      <button onclick="mostrarSeccion('informarse')">Explorar</button>
+      <button class="boton" onclick="irA('informarse')">Conocer opciones</button>
     </article>
 
     <article class="tarjeta">
       <div class="numero">PASO 04</div>
       <h2>Encontrar oportunidades</h2>
       <p>Descubre becas, cursos, formación técnica y programas de apoyo.</p>
-      <button onclick="mostrarSeccion('oportunidades')">Explorar</button>
+      <button class="boton" onclick="irA('oportunidades')">Buscar oportunidades</button>
     </article>
 
     <article class="tarjeta">
       <div class="numero">PASO 05</div>
       <h2>Planificar</h2>
       <p>Organiza tus metas y los pasos para acercarte a tu futuro académico.</p>
-      <button onclick="mostrarSeccion('planificar')">Explorar</button>
+      <button class="boton" onclick="irA('planificar')">Crear mi plan</button>
     </article>
 
   </div>
-</div>
 
-<section class="seccion" id="conocerse">
-  <h1>01. Conocerse</h1>
-  <p>El primer paso es descubrir quién eres.</p>
-  <p>Aquí podrás explorar tus intereses, habilidades, fortalezas, preferencias y reflexionar sobre lo que te gustaría para tu futuro.</p>
-  <button class="volver" onclick="mostrarInicio()">Volver al inicio</button>
+  <div class="bloque" style="margin-top:35px">
+    <h2>También puedes descubrir</h2>
+    <div class="tarjetas">
+
+      <article class="tarjeta">
+        <h2>Mi Rumbo Play</h2>
+        <p>Juegos y desafíos para aprender mientras te conoces.</p>
+        <button class="boton" onclick="irA('play')">Jugar</button>
+      </article>
+
+      <article class="tarjeta">
+        <h2>Mi espacio</h2>
+        <p>Consulta tus actividades, avances, favoritos y avatar.</p>
+        <button class="boton" onclick="irA('mi-espacio')">Entrar</button>
+      </article>
+
+      <article class="tarjeta">
+        <h2>Accesibilidad</h2>
+        <p>Ajusta la lectura y la presentación de la plataforma.</p>
+        <button class="boton" onclick="irA('accesibilidad')">Personalizar</button>
+      </article>
+
+    </div>
+  </div>
+
 </section>
 
-<section class="seccion" id="elegir">
-  <h1>02. Elegir</h1>
-  <p>Explora las diferentes carreras y áreas profesionales.</p>
-  <p>Compara opciones, conoce sus características y descubre cuáles despiertan tu interés.</p>
-  <button class="volver" onclick="mostrarInicio()">Volver al inicio</button>
+<!-- CONOCERSE -->
+
+<section class="pagina" id="conocerse">
+  <h1 class="titulo-seccion">01. Conocerse</h1>
+  <p class="descripcion">
+    No tienes que descubrir todo en un solo día.
+    Puedes realizar cada actividad a tu propio ritmo.
+  </p>
+
+  <div class="aviso">
+    Estas actividades son orientativas. No constituyen una prueba
+    psicométrica ni un diagnóstico psicológico.
+  </div>
+
+  <div class="lista-actividades">
+
+    <article class="actividad">
+      <h3>1. Mis intereses</h3>
+      <p>¿Qué actividades despiertan tu curiosidad?</p>
+      <button class="boton" onclick="abrirActividad('intereses')">Realizar actividad</button>
+    </article>
+
+    <article class="actividad">
+      <h3>2. Mis habilidades</h3>
+      <p>¿Qué cosas se te facilitan o disfrutas hacer?</p>
+      <button class="boton" onclick="abrirActividad('habilidades')">Realizar actividad</button>
+    </article>
+
+    <article class="actividad">
+      <h3>3. Mis fortalezas</h3>
+      <p>Reconoce cualidades que te ayudan a avanzar.</p>
+      <button class="boton" onclick="abrirActividad('fortalezas')">Realizar actividad</button>
+    </article>
+
+    <article class="actividad">
+      <h3>4. Mis preferencias</h3>
+      <p>Descubre qué ambientes y formas de aprender prefieres.</p>
+      <button class="boton" onclick="abrirActividad('preferencias')">Realizar actividad</button>
+    </article>
+
+    <article class="actividad">
+      <h3>5. Mi reflexión personal</h3>
+      <p>Expresa qué esperas de tu futuro.</p>
+      <button class="boton" onclick="abrirActividad('reflexion')">Realizar actividad</button>
+    </article>
+
+  </div>
+
+  <div class="bloque oculto" id="formulario-actividad" style="margin-top:25px">
+    <h2 id="titulo-actividad">Actividad</h2>
+    <p id="descripcion-actividad"></p>
+    <div id="contenido-actividad"></div>
+    <div class="acciones">
+      <button class="boton boton-dorado" onclick="guardarActividad()">Guardar actividad</button>
+      <button class="boton boton-claro" onclick="cerrarActividad()">Cerrar</button>
+    </div>
+    <div class="resultado" id="resultado-actividad"></div>
+  </div>
+
+  <div class="bloque">
+    <h2>Mi avance en el autoconocimiento</h2>
+    <p id="texto-progreso">Todavía no has completado actividades.</p>
+    <div class="progreso-fondo">
+      <div class="progreso-barra" id="barra-progreso"></div>
+    </div>
+  </div>
 </section>
 
-<section class="seccion" id="informarse">
-  <h1>03. Informarse</h1>
-  <p>Conoce las opciones académicas disponibles en Nicaragua.</p>
-  <p>Explora universidades, instituciones, carreras, modalidades y requisitos de ingreso.</p>
-  <button class="volver" onclick="mostrarInicio()">Volver al inicio</button>
+<!-- ELEGIR -->
+
+<section class="pagina" id="elegir">
+  <h1 class="titulo-seccion">02. Elegir</h1>
+  <p class="descripcion">
+    Explora carreras sin sentir que debes decidir inmediatamente.
+  </p>
+
+  <div class="campo">
+    <label for="buscar-carrera">Buscar una carrera o área profesional</label>
+    <input id="buscar-carrera" type="search" placeholder="Ejemplo: Psicología" oninput="filtrarCarreras()">
+  </div>
+
+  <div class="tarjetas" id="lista-carreras">
+
+    <article class="tarjeta carrera" data-nombre="psicologia ciencias sociales">
+      <h2>Psicología</h2>
+      <p>Estudia el comportamiento, los procesos mentales y las experiencias humanas.</p>
+      <p><strong>Áreas para explorar:</strong> educación, comunidad, organizaciones y salud.</p>
+      <button class="boton" onclick="favorito('Psicología')">♡ Guardar favorita</button>
+    </article>
+
+    <article class="tarjeta carrera" data-nombre="derecho ciencias sociales">
+      <h2>Derecho</h2>
+      <p>Explora las normas, la justicia, las instituciones y la resolución de conflictos.</p>
+      <p><strong>Áreas para explorar:</strong> derecho público, privado y laboral.</p>
+      <button class="boton" onclick="favorito('Derecho')">♡ Guardar favorita</button>
+    </article>
+
+    <article class="tarjeta carrera" data-nombre="trabajo social ciencias sociales">
+      <h2>Trabajo Social</h2>
+      <p>Conoce el acompañamiento a personas, familias y comunidades.</p>
+      <p><strong>Áreas para explorar:</strong> desarrollo comunitario y bienestar social.</p>
+      <button class="boton" onclick="favorito('Trabajo Social')">♡ Guardar favorita</button>
+    </article>
+
+    <article class="tarjeta carrera" data-nombre="ingenieria tecnologia">
+      <h2>Ingeniería</h2>
+      <p>Explora la aplicación de conocimientos para diseñar y resolver problemas.</p>
+      <p><strong>Áreas para explorar:</strong> tecnología, construcción y producción.</p>
+      <button class="boton" onclick="favorito('Ingeniería')">♡ Guardar favorita</button>
+    </article>
+
+    <article class="tarjeta carrera" data-nombre="educacion docencia">
+      <h2>Educación</h2>
+      <p>Descubre los procesos de enseñanza, aprendizaje y formación.</p>
+      <p><strong>Áreas para explorar:</strong> docencia y educación especial.</p>
+      <button class="boton" onclick="favorito('Educación')">♡ Guardar favorita</button>
+    </article>
+
+    <article class="tarjeta carrera" data-nombre="administracion negocios">
+      <h2>Administración</h2>
+      <p>Conoce la organización, gestión y funcionamiento de instituciones.</p>
+      <p><strong>Áreas para explorar:</strong> empresas, recursos humanos y proyectos.</p>
+      <button class="boton" onclick="favorito('Administración')">♡ Guardar favorita</button>
+    </article>
+
+  </div>
+
+  <div class="aviso">
+    Estas son carreras de ejemplo para comenzar la exploración.
+    Sus perfiles, requisitos, instituciones y oportunidades deberán
+    ampliarse y verificarse con fuentes oficiales.
+  </div>
 </section>
 
-<section class="seccion" id="oportunidades">
-  <h1>04. Encontrar oportunidades</h1>
-  <p>Tu camino académico puede tener diferentes posibilidades.</p>
-  <p>Encuentra información sobre becas, cursos, formación técnica y programas de apoyo educativo.</p>
-  <button class="volver" onclick="mostrarInicio()">Volver al inicio</button>
+<!-- INFORMARSE -->
+
+<section class="pagina" id="informarse">
+  <h1 class="titulo-seccion">03. Informarse</h1>
+  <p class="descripcion">
+    Explora las opciones de educación superior y formación en Nicaragua.
+  </p>
+
+  <div class="bloque">
+    <h2>Directorio académico de Nicaragua</h2>
+    <p>
+      Queremos reunir universidades, institutos técnicos y otras
+      instituciones educativas de los 15 departamentos y las 2 regiones
+      autónomas de Nicaragua.
+    </p>
+
+    <div class="campo">
+      <label for="departamento">Filtrar por departamento o región</label>
+      <select id="departamento">
+        <option value="">Todos los departamentos y regiones</option>
+        <option>Boaco</option>
+        <option>Carazo</option>
+        <option>Chinandega</option>
+        <option>Chontales</option>
+        <option>Estelí</option>
+        <option>Granada</option>
+        <option>Jinotega</option>
+        <option>León</option>
+        <option>Madriz</option>
+        <option>Managua</option>
+        <option>Masaya</option>
+        <option>Matagalpa</option>
+        <option>Nueva Segovia</option>
+        <option>Río San Juan</option>
+        <option>Rivas</option>
+        <option>Región Autónoma de la Costa Caribe Norte</option>
+        <option>Región Autónoma de la Costa Caribe Sur</option>
+      </select>
+    </div>
+
+    <div class="campo">
+      <label for="tipo-institucion">Tipo de institución</label>
+      <select id="tipo-institucion">
+        <option value="">Todas</option>
+        <option>Universidad pública</option>
+        <option>Universidad privada</option>
+        <option>Instituto técnico</option>
+        <option>Centro de formación</option>
+      </select>
+    </div>
+
+    <div class="aviso">
+      El directorio nacional está pendiente de investigación y verificación.
+      No mostraremos instituciones, carreras, modalidades o requisitos
+      como confirmados hasta contar con fuentes oficiales.
+    </div>
+
+    <p><strong>Información que tendrá cada institución:</strong></p>
+    <ul class="lista-resultados">
+      <li>Nombre y ubicación.</li>
+      <li>Carreras y programas disponibles.</li>
+      <li>Modalidades y duración, cuando estén confirmadas.</li>
+      <li>Requisitos de admisión y matrícula.</li>
+      <li>Enlace oficial y fecha de verificación.</li>
+    </ul>
+  </div>
 </section>
 
-<section class="seccion" id="planificar">
-  <h1>05. Planificar</h1>
-  <p>Convierte tus ideas en objetivos y pasos concretos.</p>
-  <p>Organiza tus metas, identifica requisitos y construye un plan para avanzar hacia tu futuro.</p>
-  <button class="volver" onclick="mostrarInicio()">Volver al inicio</button>
-</section>
+<!-- OPORTUNIDADES -->
 
-</main>
+<section class="pagina" id="oportunidades">
+  <h1 class="titulo-seccion">04. Encontrar oportunidades</h1>
+  <p class="descripcion">
+    Existen diferentes caminos para continuar aprendiendo.
+  </p>
 
-<footer>
-  <p>Mi Rumbo 2.0</p>
-  <p>Conoce quién eres, para descubrir dónde vas.</p>
-</footer>
-
-</div>
-
-<script>
-function comenzar() {
-  document.getElementById("bienvenida").style.display = "none";
-  document.getElementById("plataforma").style.display = "block";
-  mostrarInicio();
-}
-
-function ocultarSecciones() {
-  document.getElementById("inicio").style.display = "none";
-
-  document.querySelectorAll(".seccion").forEach(function(seccion) {
-    seccion.classList.remove("visible");
-  });
-}
-
-function mostrarInicio(boton) {
-  ocultarSecciones();
-  document.getElementById("inicio").style.display = "block";
-  activarBoton(boton);
-  window.scrollTo(0, 0);
-}
-
-function mostrarSeccion(id, boton) {
-  ocultarSecciones();
-  document.getElementById(id).classList.add("visible");
-  activarBoton(boton);
-  window.scrollTo(0, 0);
-}
-
-function activarBoton(boton) {
-  document.querySelectorAll("nav button").forEach(function(b) {
-    b.classList.remove("activo");
-  });
-
-  if (boton) {
-    boton.classList.add("activo");
-  } else {
-    document.querySelectorAll("nav button")[0].classList.add("activo");
-  }
-}
-</script>
-
-</body>
-  </html>
-  
+  <div class="tarjetas">
+    <article class="tarjeta">
+      <h2>Becas</h2>
+      <p>Oportunidades de apoyo para continuar estudios en Nicaragua y otros países.</p>
+    </article>
+    <article class="tarjeta">
+      <h2>Cursos</h2>
+      <p>Programas de aprendizaje y capacitación.</p>
+    </article>
+    <article class="tarjeta">
+      <h2>Formación técnica</h2>
+      <p>Alternativas para desarrollar conocimientos y habilidades prácticas.</p>
+    </article
