@@ -1,0 +1,461 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#142b50">
+<title>Mi Rumbo 2.0</title>
+
+<style>
+:root {
+  --azul: #142b50;
+  --azul2: #244b7a;
+  --azul3: #3971ac;
+  --hueso: #f7f3e9;
+  --blanco: #fffdf8;
+  --dorado: #e7bd55;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: var(--hueso);
+  color: var(--azul);
+  line-height: 1.6;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+.bienvenida {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 25px;
+  background: linear-gradient(145deg, var(--azul), var(--azul2));
+  color: var(--blanco);
+  text-align: center;
+}
+
+.contenido-bienvenida {
+  max-width: 650px;
+}
+
+.logo-texto {
+  font-size: 19px;
+  font-weight: bold;
+  letter-spacing: 5px;
+  color: var(--dorado);
+  margin-bottom: 35px;
+}
+
+.bienvenida h1 {
+  font-size: clamp(38px, 8vw, 65px);
+  margin-bottom: 15px;
+}
+
+.bienvenida h2 {
+  font-size: clamp(19px, 4vw, 27px);
+  font-weight: normal;
+  color: var(--dorado);
+  margin-bottom: 22px;
+}
+
+.bienvenida p {
+  font-size: 17px;
+  margin-bottom: 30px;
+  color: var(--blanco);
+}
+
+.boton-principal {
+  background: var(--dorado);
+  color: var(--azul);
+  border: none;
+  padding: 14px 30px;
+  border-radius: 30px;
+  font-weight: bold;
+  transition: 0.2s;
+}
+
+.boton-principal:hover {
+  transform: translateY(-2px);
+}
+
+#plataforma {
+  display: none;
+  min-height: 100vh;
+}
+
+header {
+  background: var(--azul);
+  color: var(--blanco);
+  padding: 20px 6%;
+}
+
+.encabezado {
+  max-width: 1150px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.marca {
+  font-size: 23px;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.marca span {
+  color: var(--dorado);
+}
+
+nav {
+  background: var(--azul2);
+  padding: 12px 5%;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+nav button {
+  border: none;
+  background: transparent;
+  color: var(--blanco);
+  padding: 10px 15px;
+  border-radius: 20px;
+  font-size: 14px;
+}
+
+nav button:hover,
+nav button.activo {
+  background: var(--dorado);
+  color: var(--azul);
+}
+
+main {
+  max-width: 1100px;
+  margin: auto;
+  padding: 45px 20px;
+}
+
+.presentacion {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.presentacion h1 {
+  font-size: clamp(27px, 5vw, 40px);
+  margin-bottom: 10px;
+}
+
+.presentacion p {
+  color: #53647a;
+  font-size: 17px;
+}
+
+.tarjetas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.tarjeta {
+  background: var(--blanco);
+  padding: 25px;
+  border-radius: 16px;
+  border: 1px solid #e5dfd1;
+  box-shadow: 0 5px 18px rgba(20,43,80,0.06);
+  transition: 0.2s;
+}
+
+.tarjeta:hover {
+  transform: translateY(-4px);
+}
+
+.numero {
+  color: var(--azul3);
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.tarjeta h2 {
+  font-size: 21px;
+  margin: 10px 0;
+}
+
+.tarjeta p {
+  color: #59677a;
+  font-size: 15px;
+  margin-bottom: 18px;
+}
+
+.tarjeta button {
+  background: var(--azul2);
+  color: white;
+  border: none;
+  padding: 10px 17px;
+  border-radius: 20px;
+}
+
+.tarjeta button:hover {
+  background: var(--azul3);
+}
+
+.seccion {
+  display: none;
+  background: var(--blanco);
+  padding: 35px;
+  border-radius: 16px;
+  border: 1px solid #e5dfd1;
+}
+
+.seccion.visible {
+  display: block;
+}
+
+.seccion h1 {
+  margin-bottom: 12px;
+}
+
+.seccion p {
+  color: #53647a;
+  margin-bottom: 15px;
+}
+
+.volver {
+  background: var(--azul2);
+  color: white;
+  border: none;
+  padding: 11px 20px;
+  border-radius: 20px;
+  margin-top: 15px;
+}
+
+footer {
+  text-align: center;
+  padding: 25px;
+  background: var(--azul);
+  color: var(--blanco);
+  font-size: 14px;
+  margin-top: 50px;
+}
+
+@media (max-width: 600px) {
+  .encabezado {
+    justify-content: center;
+    text-align: center;
+  }
+
+  nav {
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+  }
+
+  nav button {
+    white-space: nowrap;
+  }
+
+  main {
+    padding: 30px 15px;
+  }
+
+  .seccion {
+    padding: 23px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<section class="bienvenida" id="bienvenida">
+  <div class="contenido-bienvenida">
+    <div class="logo-texto">MI RUMBO</div>
+
+    <h1>Bienvenido a Mi Rumbo</h1>
+
+    <h2>Conoce quién eres, para descubrir dónde vas.</h2>
+
+    <p>
+      Un espacio para descubrir tus intereses,
+      explorar tus posibilidades y construir tu futuro académico.
+    </p>
+
+    <button class="boton-principal" onclick="comenzar()">
+      Comenzar mi recorrido
+    </button>
+  </div>
+</section>
+
+<div id="plataforma">
+
+<header>
+  <div class="encabezado">
+    <div class="marca">MI <span>RUMBO</span></div>
+    <p>Tu futuro comienza con conocerte.</p>
+  </div>
+</header>
+
+<nav aria-label="Navegación principal">
+  <button class="activo" onclick="mostrarInicio(this)">Inicio</button>
+  <button onclick="mostrarSeccion('conocerse', this)">Conocerse</button>
+  <button onclick="mostrarSeccion('elegir', this)">Elegir</button>
+  <button onclick="mostrarSeccion('informarse', this)">Informarse</button>
+  <button onclick="mostrarSeccion('oportunidades', this)">Oportunidades</button>
+  <button onclick="mostrarSeccion('planificar', this)">Planificar</button>
+</nav>
+
+<main>
+
+<div id="inicio">
+  <div class="presentacion">
+    <h1>Este es tu camino. ¡Descúbrelo!</h1>
+    <p>
+      Cinco pasos para conocerte, explorar tus opciones
+      y acercarte a tus metas académicas.
+    </p>
+  </div>
+
+  <div class="tarjetas">
+
+    <article class="tarjeta">
+      <div class="numero">PASO 01</div>
+      <h2>Conocerse</h2>
+      <p>Descubre tus intereses, habilidades, fortalezas y preferencias.</p>
+      <button onclick="mostrarSeccion('conocerse')">Explorar</button>
+    </article>
+
+    <article class="tarjeta">
+      <div class="numero">PASO 02</div>
+      <h2>Elegir</h2>
+      <p>Explora carreras y compara diferentes posibilidades profesionales.</p>
+      <button onclick="mostrarSeccion('elegir')">Explorar</button>
+    </article>
+
+    <article class="tarjeta">
+      <div class="numero">PASO 03</div>
+      <h2>Informarse</h2>
+      <p>Conoce universidades, carreras y opciones de estudio en Nicaragua.</p>
+      <button onclick="mostrarSeccion('informarse')">Explorar</button>
+    </article>
+
+    <article class="tarjeta">
+      <div class="numero">PASO 04</div>
+      <h2>Encontrar oportunidades</h2>
+      <p>Descubre becas, cursos, formación técnica y programas de apoyo.</p>
+      <button onclick="mostrarSeccion('oportunidades')">Explorar</button>
+    </article>
+
+    <article class="tarjeta">
+      <div class="numero">PASO 05</div>
+      <h2>Planificar</h2>
+      <p>Organiza tus metas y los pasos para acercarte a tu futuro académico.</p>
+      <button onclick="mostrarSeccion('planificar')">Explorar</button>
+    </article>
+
+  </div>
+</div>
+
+<section class="seccion" id="conocerse">
+  <h1>01. Conocerse</h1>
+  <p>El primer paso es descubrir quién eres.</p>
+  <p>Aquí podrás explorar tus intereses, habilidades, fortalezas, preferencias y reflexionar sobre lo que te gustaría para tu futuro.</p>
+  <button class="volver" onclick="mostrarInicio()">Volver al inicio</button>
+</section>
+
+<section class="seccion" id="elegir">
+  <h1>02. Elegir</h1>
+  <p>Explora las diferentes carreras y áreas profesionales.</p>
+  <p>Compara opciones, conoce sus características y descubre cuáles despiertan tu interés.</p>
+  <button class="volver" onclick="mostrarInicio()">Volver al inicio</button>
+</section>
+
+<section class="seccion" id="informarse">
+  <h1>03. Informarse</h1>
+  <p>Conoce las opciones académicas disponibles en Nicaragua.</p>
+  <p>Explora universidades, instituciones, carreras, modalidades y requisitos de ingreso.</p>
+  <button class="volver" onclick="mostrarInicio()">Volver al inicio</button>
+</section>
+
+<section class="seccion" id="oportunidades">
+  <h1>04. Encontrar oportunidades</h1>
+  <p>Tu camino académico puede tener diferentes posibilidades.</p>
+  <p>Encuentra información sobre becas, cursos, formación técnica y programas de apoyo educativo.</p>
+  <button class="volver" onclick="mostrarInicio()">Volver al inicio</button>
+</section>
+
+<section class="seccion" id="planificar">
+  <h1>05. Planificar</h1>
+  <p>Convierte tus ideas en objetivos y pasos concretos.</p>
+  <p>Organiza tus metas, identifica requisitos y construye un plan para avanzar hacia tu futuro.</p>
+  <button class="volver" onclick="mostrarInicio()">Volver al inicio</button>
+</section>
+
+</main>
+
+<footer>
+  <p>Mi Rumbo 2.0</p>
+  <p>Conoce quién eres, para descubrir dónde vas.</p>
+</footer>
+
+</div>
+
+<script>
+function comenzar() {
+  document.getElementById("bienvenida").style.display = "none";
+  document.getElementById("plataforma").style.display = "block";
+  mostrarInicio();
+}
+
+function ocultarSecciones() {
+  document.getElementById("inicio").style.display = "none";
+
+  document.querySelectorAll(".seccion").forEach(function(seccion) {
+    seccion.classList.remove("visible");
+  });
+}
+
+function mostrarInicio(boton) {
+  ocultarSecciones();
+  document.getElementById("inicio").style.display = "block";
+  activarBoton(boton);
+  window.scrollTo(0, 0);
+}
+
+function mostrarSeccion(id, boton) {
+  ocultarSecciones();
+  document.getElementById(id).classList.add("visible");
+  activarBoton(boton);
+  window.scrollTo(0, 0);
+}
+
+function activarBoton(boton) {
+  document.querySelectorAll("nav button").forEach(function(b) {
+    b.classList.remove("activo");
+  });
+
+  if (boton) {
+    boton.classList.add("activo");
+  } else {
+    document.querySelectorAll("nav button")[0].classList.add("activo");
+  }
+}
+</script>
+
+</body>
+  </html>
+  
