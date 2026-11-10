@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#142b50">
+<meta name="description" content="Mi Rumbo 2.0: orientación vocacional para jóvenes.">
+<title>Mi Rumbo 2.0</title>
+
+<style>
+:root{
+ --navy:#142b50;
+ --blue:#244b7a;
+ --blue2:#3971ac;
+ --bone:#f7f3e9;
+ --paper:#fffdf8;
+ --gold:#d9ad48;
+ --ink:#26364b;
+ --muted:#657286;
+ --line:#e2e7ee;
+}
+*{box-sizing:border-box}
+body{
+ margin:0;
+ background:var(--bone);
+ color:var(--ink);
+ font:16px/1.55 Arial,sans-serif;
+}
+button,input,textarea,select{font:inherit}
+button{
+ cursor:pointer;
+ border:0;
+ border-radius:11px;
+ padding:11px 16px;
+ background:var(--blue);
+ color:white;
+ font-weight:bold;
+ margin:4px;
+}
+button:hover{background:var(--blue2)}
+.btn-gold{background:var(--gold);color:var(--navy)}
+.btn-light{background:#e8edf4;color:var(--navy)}
+header{
+ background:var(--navy);
+ color:white;
+ text-align:center;
+ padding:22px 15px;
+}
+header h1{margin:8px 0 0;letter-spacing:3px}
+header p{color:var(--gold);margin:4px}
+.logo{
+ width:115px;
+ height:115px;
+ display:block;
+ margin:auto;
+}
+main{max-width:1050px;margin:auto;padding:15px}
+.panel{
+ background:var(--paper);
+ padding:22px;
+ border-radius:18px;
+ margin:14px 0;
+ box-shadow:0 8px 26px #142b5010;
+ border:1px solid #142b5010;
+}
+.hidden{display:none!important}
+h2,h3{color:var(--navy);line-height:1.3}
+h2{margin-top:0}
+.grid{
+ display:grid;
+ grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+ gap:13px;
+}
+.tile{
+ background:var(--paper);
+ color:var(--ink);
+ border:1px solid var(--line);
+ border-radius:15px;
+ padding:18px;
+ text-align:left;
+ min-height:125px;
+}
+.tile strong{
+ display:block;
+ color:var(--navy);
+ font-size:1.08rem;
+ margin-bottom:7px;
+}
+.number{color:#a47b22;font-size:.8rem;font-weight:bold}
+.row{display:flex;gap:9px;flex-wrap:wrap;align-items:center}
+.spacer{flex:1}
+.field{margin:12px 0}
+.field label{display:block;font-weight:bold;margin-bottom:5px}
+.field input,.field textarea,.field select,.search{
+ width:100%;
+ padding:12px;
+ border:1px solid #cbd3df;
+ border-radius:10px;
+ background:white;
+ color:var(--ink);
+}
+.notice{
+ background:#fff4d5;
+ border-left:4px solid var(--gold);
+ padding:13px;
+ border-radius:9px;
+ margin:13px 0;
+}
+.tag{
+ display:inline-block;
+ background:#e8edf4;
+ color:var(--navy);
+ padding:4px 9px;
+ border-radius:20px;
+ margin:3px;
+ font-size:.83rem;
+}
+.result-card,.career-card{
+ background:white;
+ border:1px solid var(--line);
+ border-left:4px solid var(--gold);
+ border-radius:11px;
+ padding:14px;
+ margin:10px 0;
+}
+.question{padding:13px 0;border-bottom:1px solid var(--line)}
+.question p{font-weight:bold}
+.choice{display:inline-flex;gap:6px;margin:5px 15px 5px 0}
+.choice input{accent-color:var(--blue)}
+.progress{
+ height:10px;
+ border-radius:20px;
+ background:#e5e9ef;
+ overflow:hidden;
+}
+.progress div{
+ height:100%;
+ width:0;
+ background:var(--gold);
+}
+.topbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+footer{text-align:center;padding:25px;color:var(--muted)}
+.empty{padding:12px;border:1px dashed var(--line);border-radius:10px}
+.mini-stat{
+ background:#edf1f6;
+ padding:12px;
+ border-radius:12px;
+ flex:1;
+ min-width:110px;
+}
+.mini-stat b{display:block;font-size:1.4rem;color:var(--navy)}
+video{width:100%;border-radius:12px;background:#000}
+a{color:var(--blue2);font-weight:bold}
+@media(max-width:560px){
+ main{padding:10px}
+ .panel{padding:16px}
+ .grid{grid-template-columns:1fr 1fr}
+ .tile{padding:13px}
+}
+@media(max-width:360px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+
+<body>
+
+<header>
+ <svg class="logo" viewBox="0 0 200 200" role="img" aria-label="Logo original de Mi Rumbo: brújula y camino">
+  <circle cx="100" cy="100" r="92" fill="#f7f3e9" stroke="#d9ad48" stroke-width="5"/>
+  <circle cx="100" cy="100" r="78" fill="#142b50"/>
+  <path d="M35 115 L72 78 L100 103 L130 70 L165 112 L165 150 L35 150Z" fill="#3971ac"/>
+  <path d="M35 130 L73 98 L100 120 L130 89 L165 130 L165 150 L35 150Z" fill="#397d69"/>
+  <path d="M90 150 C85 130 110 122 103 105 C99 94 91 87 100 68 C112 88 124 101 116 116 C110 130 104 139 112 150Z" fill="#d9ad48"/>
+  <path d="M100 23 L109 52 L100 46 L91 52Z" fill="#d9ad48"/>
+  <text x="100" y="174" text-anchor="middle" font-size="15" font-weight="bold" fill="#f7f3e9" letter-spacing="2">MI RUMBO</text>
+ </svg>
+ <h1>MI RUMBO 2.0</h1>
+ <p>Explora. Descubre. Decide.</p>
+</header>
+
+<main>
+
+<section id="welcome" class="panel">
+ <h2>Tu camino comienza contigo</h2>
+ <p>Mi Rumbo te acompaña a reconocer tus intereses, explorar carreras y organizar tus próximos pasos académicos.</p>
+ <p>No tienes que tener todas las respuestas hoy. Este es un espacio para comenzar a descubrirlas.</p>
+ <button class="btn-gold" onclick="entrar()">Comenzar mi recorrido</button>
+ <p class="small">Tus avances se guardan en este dispositivo y navegador.</p>
+</section>
+
+<section id="home" class="hidden">
+ <div class="panel">
+  <h2>¡Bienvenido a tu espacio!</h2>
+  <p>Avanza a tu ritmo. Tu futuro se construye paso a paso.</p>
+  <div class="progress"><div id="progressBar"></div></div>
+  <p id="progressText" class="small">0 de 5 pasos iniciados</p>
+ </div>
+
+ <div class="grid">
+  <button class="tile" onclick="go('know')">
+   <span class="number">PASO 01</span>
+   <strong>Conocerse</strong>
+   Reconoce tus intereses, aptitudes y fortalezas.
+  </button>
+  <button class="tile" onclick="go('choose')">
+   <span class="number">PASO 02</span>
+   <strong>Explorar carreras</strong>
+   Investiga opciones profesionales.
+  </button>
+  <button class="tile" onclick="go('learn')">
+   <span class="number">PASO 03</span>
+   <strong>Ofertas académicas</strong>
+   Conoce instituciones educativas.
+  </button>
+  <button class="tile" onclick="go('opportunities')">
+   <span class="number">PASO 04</span>
+   <strong>Oportunidades</strong>
+   Consulta formación y programas.
+  </button>
+  <button class="tile" onclick="go('plan')">
+   <span class="number">PASO 05</span>
+   <strong>Mi plan de ingreso</strong>
+   Organiza tus metas y próximos pasos.
+  </button>
+  <button class="tile" onclick="go('play')">
+   <span class="number">EXPLORA</span>
+   <strong>Mi Rumbo Play</strong>
+   Participa en pequeños retos.
+  </button>
+  <button class="tile" onclick="go('myspace')">
+   <span class="number">TU PROCESO</span>
+   <strong>Mi espacio</strong>
+   Revisa tus resultados y favoritas.
+  </button>
+  <button class="tile" onclick="go('resources')">
+   <span class="number">RECURSOS</span>
+   <strong>Guía de matrícula</strong>
+   Aprende sobre la prematrícula en línea.
+  </button>
+  <button class="tile" onclick="go('about')">
+   <span class="number">EL PROYECTO</span>
+   <strong>Acerca de Mi Rumbo</strong>
+   Conoce el propósito de esta herramienta.
+  </button>
+ </div>
+</section>
+
+<section id="know" class="panel hidden">
+ <div class="topbar">
+  <button class="btn-light" onclick="go('home')">← Inicio</button>
+  <span class="spacer"></span><span class="tag">Paso 1 de 5</span>
+ </div>
+ <h2>Recorrido vocacional</h2>
+ <p>Responde pensando en lo que realmente te gusta y en aquello que se te facilita. No hay respuestas correctas o incorrectas.</p>
+ <div class="notice">
+  Este cuestionario es una herramienta orientativa inspirada en siete áreas vocacionales. No es la prueba oficial CHASIDE, no es una prueba psicométrica validada y no sustituye una evaluación profesional.
+ </div>
+ <div class="row">
+  <span class="tag">Parte A: intereses</span>
+  <span class="tag">Parte B: aptitudes percibidas</span>
+ </div>
+ <div class="progress"><div id="quizBar"></div></div>
+ <p id="quizCount" class="small"></p>
+ <div id="quizQuestions"></div>
+ <button class="btn-gold" onclick="calculateResults()">Calcular mi orientación</button>
+ <button class="btn-light" onclick="clearQuiz()">Borrar respuestas</button>
+ <div id="quizResult"></div>
+</section>
+
+<section id="choose" class="panel hidden">
+ <div class="topbar">
+  <button class="btn-light" onclick="go('home')">← Inicio</button>
+  <span class="spacer"></span><span class="tag">Paso 2 de 5</span>
+ </div>
+ <h2>Explorar carreras</h2>
+ <p>Investiga las opciones que despierten tu curiosidad. Una sugerencia puede darte ideas, pero no decide por ti.</p>
+ <input class="search" id="careerSearch" placeholder="Buscar carrera o área..." oninput="renderCareers()">
+ <div class="field">
+  <label for="areaFilter">Filtrar por área</label>
+  <select id="areaFilter" onchange="renderCareers()">
+   <option value="all">Todas las áreas</option>
+   <option value="C">Administrativas y contables</option>
+   <option value="H">Humanísticas y sociales</option>
+   <option value="A">Artísticas</option>
+   <option value="S">Salud</option>
+   <option value="I">Ingeniería y ciencias</option>
+   <option value="D">Defensa y seguridad</option>
+   <option value="E">Ciencias exactas y tecnología</option>
+  </select>
+ </div>
+ <div id="careerResults"></div>
+ <div id="careerDetail"></div>
+</section>
+
+<section id="learn" class="panel hidden">
+ <div class="topbar">
+  <button class="btn-light" onclick="go('home')">← Inicio</button>
+  <span class="spacer"></span><span class="tag">Paso 3 de 5</span>
+ </div>
+ <h2>Ofertas académicas</h2>
+ <p>Consulta los portales oficiales de instituciones educativas en Nicaragua. Confirma directamente la carrera, sede, modalidad, requisitos y fechas.</p>
+ <input class="search" id="institutionSearch" placeholder="Buscar institución..." oninput="renderInstitutions()">
+ <div id="institutionResults"></div>
+ <div class="notice">La información de admisión puede cambiar. Confirma siempre los datos en la página oficial de cada institución.</div>
+</section>
+
+<section id="opportunities" class="panel hidden">
+ <div class="topbar">
+  <button class="btn-light" onclick="go('home')">← Inicio</button>
+  <span class="spacer"></span><span class="tag">Paso 4 de 5</span>
+ </div>
+ <h2>Oportunidades para aprender</h2>
+ <p>Explora portales de formación y programas dirigidos a jóvenes.</p>
+ <div id="opportunityResults"></div>
+ <div class="notice">Verifica requisitos, fechas, costos y canales oficiales antes de entregar documentos o datos personales.</div>
+</section>
+
+<section id="plan" class="panel hidden">
+ <div class="topbar">
+  <button class="btn-light" onclick="go('home')">← Inicio</button>
+  <span class="spacer"></span><span class="tag">Paso 5 de 5</span>
+ </div>
+ <h2>Mi plan de ingreso</h2>
+ <p>Convierte tus ideas en pasos concretos. Puedes editar tu plan cuando cambien tus intereses.</p>
+ <div class="field">
+  <label for="planName">Nombre o apodo (opcional)</label>
+  <input id="planName" maxlength="40" placeholder="Tu nombre">
+ </div>
+ <div class="field">
+  <label for="planCareer">Carrera que te interesa</label>
+  <input id="planCareer" placeholder="Ej. Psicología">
+ </div>
+ <div class="field">
+  <label for="planInstitution">Institución que te interesa</label>
+  <input id="planInstitution" placeholder="Nombre de la institución">
+ </div>
+ <div class="field">
+  <label for="planGoal">Mi meta académica</label>
+  <textarea id="planGoal" rows="3"></textarea>
+ </div>
+ <div class="field">
+  <label for="planSteps">Pasos que necesito realizar</label>
+  <textarea id="planSteps" rows="5" placeholder="1. Investigar requisitos&#10;2. Consultar fechas&#10;3. Preparar documentos"></textarea>
+ </div>
+ <div class="field">
+  <label for="planDate">Fecha para revisar mi plan</label>
+  <input id="planDate" type="date">
+ </div>
+ <button class="btn-gold" onclick="savePlan()">Guardar mi plan</button>
+ <p id="planMsg" aria-live="polite"></p>
+</section>
+
+<section id="play" class="panel hidden">
+ <div class="topbar">
+  <button class="btn-light" onclick="go('home')">← Inicio</button>
+  <span class="spacer"></span><span class="tag">Mi Rumbo Play</span>
+ </div>
+ <h2>Aprender también puede ser un juego</h2>
+ <p>Participa en estos retos. Los puntos son por participar; no miden tus capacidades ni determinan tu futuro.</p>
+ <div class="row">
+  <div class="mini-stat"><b id="playPoints">0</b><span class="small">Puntos</span></div>
+  <div class="mini-stat"><b id="playBadges">0</b><span class="small">Retos completados</span></div>
+ </div>
+ <div class="result-card">
+  <h3>Reto 1 · Trabajo en equipo</h3>
+  <p>En un trabajo grupal el equipo no logra organizarse. ¿Qué harías primero?</p>
+  <div id="game1">
+   <button class="btn-light" onclick="answerGame(1,0)">Escuchar ideas y repartir tareas.</button>
+   <button class="btn-light" onclick="answerGame(1,1)">Buscar información para resolver el tema.</button>
+   <button class="btn-light" onclick="answerGame(1,2)">Proponer una forma creativa de presentar.</button>
+  </div>
+  <p id="game1msg"></p>
+ </div>
+ <div class="result-card">
+  <h3>Reto 2 · Tu curiosidad</h3>
+  <p>¿Qué actividad te daría más ganas de dedicarle tiempo?</p>
+  <div id="game2">
+   <button class="btn-light" onclick="answerGame(2,0)">Acompañar a alguien y escucharle.</button>
+   <button class="btn-light" onclick="answerGame(2,1)">Investigar cómo funciona algo.</button>
+   <button class="btn-light" onclick="answerGame(2,2)">Diseñar o crear algo nuevo.</button>
+  </div>
+  <p id="game2msg"></p>
+ </div>
+ <div class="result-card">
+  <h3>Reto 3 · Tu brújula</h3>
+  <p>¿Qué pregunta te gustaría explorar esta semana?</p>
+  <div id="game3">
+   <button class="btn-light" onclick="answerGame(3,0)">¿Qué necesito para entrar a una carrera?</button>
+   <button class="btn-light" onclick="answerGame(3,1)">¿Qué habilidades quiero desarrollar?</button>
+   <button class="btn-light" onclick="answerGame(3,2)">¿Qué opciones de estudio existen?</button>
+  </div>
+  <p id="game3msg"></p>
+ </div>
+ <button class="btn-light" onclick="resetGames()">Reiniciar retos</button>
+</section>
+
+<section id="myspace" class="panel hidden">
+ <div class="topbar"><button class="btn-light" onclick="go('home')">← Inicio</button></div>
+ <h2>Mi espacio</h2>
+ <div class="row">
+  <div class="mini-stat"><b id="favCount">0</b><span class="small">Carreras favoritas</span></div>
+  <div class="mini-stat"><b id="gameCount">0</b><span class="small">Retos completados</span></div>
+ </div>
+ <h3>Mis carreras favoritas</h3>
+ <div id="favoriteList"></div>
+ <h3>Mis resultados</h3>
+ <div id="savedResults"></div>
+ <h3>Mi plan</h3>
+ <div id="savedPlan"></div>
+ <button class="btn-light" onclick="exportMyData()">Descargar mis datos</button>
+</section>
+
+<section id="resources" class="panel hidden">
+ <div class="topbar"><button class="btn-light" onclick="go('home')">← Inicio</button></div>
+ <h2>Guía de matrícula en línea</h2>
+ <p>En este video encontrarás material audiovisual sobre el proceso de prematrícula y matrícula en línea.</p>
+ <video controls preload="metadata" playsinline>
+  <source src="https://raw.githubusercontent.com/karla634/Orientaci-n-vocacional-/main/guia-matricula.mp4" type="video/mp4">
+  Tu navegador no puede reproducir este video. Puedes abrirlo desde el enlace:
+  <a href="https://raw.githubusercontent.com/karla634/Orientaci-n-vocacional-/main/guia-matricula.mp4" target="_blank" rel="noopener">Ver video de matrícula</a>
+ </video>
+ <p class="small">Material audiovisual elaborado por Sofía Herrera.</p>
+ <div class="notice">El video requiere conexión a internet para reproducirse.</div>
+</section>
+
+<section id="about" class="panel hidden">
+ <div class="topbar"><button class="btn-light" onclick="go('home')">← Inicio</button></div>
+ <h2>Acerca de Mi Rumbo</h2>
+ <p>Mi Rumbo es una plataforma gratuita de orientación vocacional y oportunidades académicas, creada con el propósito de acompañar a los jóvenes en el proceso de autoconocimiento, exploración de carreras y planificación de su futuro académico.</p>
+ <p>Busca ofrecer un espacio sencillo donde cada estudiante pueda reflexionar sobre sus intereses, conocer opciones profesionales e informarse sobre instituciones educativas.</p>
+ <p>Es una herramienta educativa y orientativa. No sustituye evaluaciones psicométricas, diagnósticos psicológicos ni el acompañamiento de profesionales.</p>
+ <h3>Explora. Descubre. Decide.</h3>
+ <p>Tu camino comienza contigo. 💙</p>
+</section>
+
+</main>
+
+<footer>Mi Rumbo 2.0 · Tu camino comienza contigo 💙</footer>
+
+<script>
+const areaNames={
+ C:"Administrativas y contables",
+ H:"Humanísticas y sociales",
+ A:"Artísticas",
+ S:"Salud",
+ I:"Ingeniería y ciencias",
+ D:"Defensa y seguridad",
+ E:"Ciencias exactas y tecnología"
+};
+
+const careerData=[
+{name:"Administración de Empresas",area:"C",description:"Organiza recursos, equipos y procesos de una organización.",skills:"Organización, liderazgo, comunicación y toma de decisiones.",paths:"Administración pública, empresas y gestión de proyectos."},
+{name:"Contabilidad",area:"C",description:"Registra, analiza y comunica información financiera.",skills:"Atención al detalle, orden, ética y razonamiento numérico.",paths:"Contabilidad, auditoría y finanzas."},
+{name:"Economía",area:"C",description:"Estudia cómo se producen, distribuyen y utilizan los recursos.",skills:"Análisis, pensamiento crítico y matemática.",paths:"Sector público, investigación y consultoría."},
+{name:"Marketing",area:"C",description:"Investiga mercados y crea estrategias para comunicar productos o servicios.",skills:"Creatividad, comunicación y análisis.",paths:"Publicidad e investigación de mercados."},
+{name:"Psicología",area:"H",description:"Estudia el comportamiento, los procesos mentales y las relaciones humanas.",skills:"Escucha, pensamiento crítico, empatía y responsabilidad ética.",paths:"Psicología educativa, organizacional, social, clínica y comunitaria."},
+{name:"Trabajo Social",area:"H",description:"Acompaña a personas, familias y comunidades ante distintas situaciones sociales.",skills:"Escucha, análisis social y trabajo comunitario.",paths:"Instituciones sociales y proyectos comunitarios."},
+{name:"Derecho",area:"H",description:"Estudia las normas, las instituciones y la resolución de conflictos.",skills:"Lectura, argumentación y análisis.",paths:"Abogacía, asesoría y mediación."},
+{name:"Sociología",area:"H",description:"Investiga las relaciones, grupos y procesos de la sociedad.",skills:"Investigación, observación y análisis.",paths:"Investigación social y políticas públicas."},
+{name:"Educación",area:"H",description:"Estudia y desarrolla procesos de enseñanza y aprendizaje.",skills:"Comunicación, planificación y paciencia.",paths:"Docencia, orientación y gestión educativa."},
+{name:"Comunicación",area:"A",description:"Desarrolla procesos de comunicación en distintos medios.",skills:"Expresión, escritura y creatividad.",paths:"Periodismo, producción y medios digitales."},
+{name:"Diseño Gráfico",area:"A",description:"Comunica ideas mediante imágenes, tipografía y recursos visuales.",skills:"Creatividad, observación y composición.",paths:"Diseño editorial, identidad visual e ilustración."},
+{name:"Arquitectura",area:"A",description:"Diseña espacios y proyectos considerando uso, estética y contexto.",skills:"Creatividad, dibujo y razonamiento espacial.",paths:"Diseño arquitectónico y urbanismo."},
+{name:"Medicina",area:"S",description:"Forma profesionales para prevenir, diagnosticar y tratar problemas de salud.",skills:"Estudio constante, responsabilidad y ciencias.",paths:"Atención sanitaria, investigación y salud pública."},
+{name:"Enfermería",area:"S",description:"Brinda cuidados integrales y acompaña a personas y comunidades.",skills:"Observación, comunicación y responsabilidad.",paths:"Hospitales, centros de salud y comunidad."},
+{name:"Nutrición",area:"S",description:"Estudia la alimentación y su relación con la salud.",skills:"Biología, comunicación y análisis.",paths:"Atención nutricional y salud pública."},
+{name:"Farmacia",area:"S",description:"Estudia medicamentos, su preparación, uso y seguridad.",skills:"Química, precisión y responsabilidad.",paths:"Farmacias, industria y laboratorios."},
+{name:"Ingeniería Civil",area:"I",description:"Aplica ciencias y tecnología al diseño y construcción de infraestructura.",skills:"Matemática, física y planificación.",paths:"Construcción, transporte y gestión de obras."},
+{name:"Ingeniería en Sistemas",area:"I",description:"Diseña, desarrolla y administra sistemas informáticos.",skills:"Lógica, matemática y creatividad.",paths:"Software, redes, datos y soporte tecnológico."},
+{name:"Ingeniería Agronómica",area:"I",description:"Aplica ciencia y tecnología a sistemas de producción agrícola.",skills:"Biología, observación y análisis.",paths:"Producción agrícola e investigación."},
+{name:"Biología",area:"I",description:"Estudia los seres vivos y sus procesos.",skills:"Observación, investigación y ciencias.",paths:"Laboratorios, conservación y educación."},
+{name:"Matemática",area:"E",description:"Estudia cantidades, estructuras, patrones y relaciones.",skills:"Razonamiento abstracto y lógica.",paths:"Docencia, investigación y análisis."},
+{name:"Estadística",area:"E",description:"Recopila y analiza datos para comprender fenómenos.",skills:"Matemática, pensamiento crítico y atención al detalle.",paths:"Investigación y análisis de datos."},
+{name:"Química",area:"E",description:"Estudia la composición, propiedades y transformaciones de la materia.",skills:"Observación, precisión y método científico.",paths:"Laboratorios, industria e investigación."},
+{name:"Física",area:"E",description:"Estudia la materia, la energía y las leyes naturales.",skills:"Matemática, curiosidad y experimentación.",paths:"Investigación, docencia y tecnología."},
+{name:"Ciencias Policiales",area:"D",description:"Se relaciona con prevención, investigación y seguridad ciudadana.",skills:"Disciplina, ética y autocontrol.",paths:"Instituciones de seguridad, según requisitos oficiales."},
+{name:"Relaciones Internacionales",area:"D",description:"Estudia vínculos entre países, organismos y actores internacionales.",skills:"Idiomas, análisis y comunicación.",paths:"Cooperación, diplomacia e investigación."}
+];
+
+const institutions=[
+{name:"UNAN-Managua",type:"Universidad pública",region:"Managua",url:"https://www.unan.edu.ni/",description:"Universidad Nacional Autónoma de Nicaragua, Managua."},
+{name:"UNAN-León",type:"Universidad pública",region:"León",url:"https://www.unanleon.edu.ni/",description:"Universidad Nacional Autónoma de Nicaragua, León."},
+{name:"Universidad Nacional Agraria (UNA)",type:"Universidad pública",region:"Managua",url:"https://www.una.edu.ni/",description:"Institución de educación superior vinculada al ámbito agrario."},
+{name:"INATEC",type:"Formación técnica pública",region:"Nacional",url:"https://tecnacional.edu.ni/",description:"Portal de educación y formación técnica y tecnológica."},
+{name:"INATEC · Educación técnica",type:"Formación técnica pública",region:"Nacional",url:"https://tecnacional.edu.ni/educacion-tecnica/",description:"Información sobre educación técnica."},
+{name:"Ministerio de la Juventud",type:"Programas juveniles",region:"Nacional",url:"https://minjuve.gob.ni/",description:"Portal institucional para consultar programas dirigidos a jóvenes."}
+];
+
+const opportunities=[
+["INATEC · Educación técnica","Formación técnica y tecnológica. Revisa carreras, sedes y convocatorias.","https://tecnacional.edu.ni/educacion-tecnica/"],
+["Ministerio de la Juventud","Consulta programas, actividades y anuncios para jóvenes.","https://minjuve.gob.ni/"],
+["UNAN-Managua","Consulta información académica y admisión.","https://www.unan.edu.ni/"],
+["UNAN-León","Consulta su oferta académica y anuncios oficiales.","https://www.unanleon.edu.ni/"],
+["Universidad Nacional Agraria","Consulta programas académicos y anuncios oficiales.","https://www.una.edu.ni/"]
+];
+
+const questions=[
+["interes","C","Me gusta organizar actividades, horarios o recursos."],
+["interes","C","Me interesa llevar cuentas y revisar que los números estén correctos."],
+["interes","C","Me llama la atención cómo se administra una empresa o institución."],
+["interes","H","Me interesa escuchar a otras personas y comprender lo que viven."],
+["interes","H","Me gusta debatir sobre temas sociales y buscar soluciones."],
+["interes","H","Me gustaría enseñar o acompañar el aprendizaje de otras personas."],
+["interes","A","Disfruto dibujar, diseñar o crear cosas visuales."],
+["interes","A","Me interesa comunicar ideas mediante textos, imágenes o videos."],
+["interes","A","Me gusta imaginar cómo mejorar los espacios y objetos."],
+["interes","S","Me interesa aprender cómo funciona el cuerpo humano."],
+["interes","S","Me gustaría participar en el cuidado y bienestar de las personas."],
+["interes","S","Me interesa la alimentación y su relación con la salud."],
+["interes","I","Me gusta descubrir cómo funcionan máquinas, sistemas o herramientas."],
+["interes","I","Me interesa la agricultura, la naturaleza o los seres vivos."],
+["interes","I","Disfruto investigar y experimentar para resolver preguntas."],
+["interes","D","Me interesa contribuir a la seguridad y el bienestar de la comunidad."],
+["interes","D","Me llaman la atención las normas, la justicia y la prevención."],
+["interes","D","Me gustaría trabajar en actividades que requieren disciplina y responsabilidad."],
+["interes","E","Disfruto resolver problemas matemáticos o encontrar patrones."],
+["interes","E","Me interesa analizar datos y comprobar si una idea es correcta."],
+["interes","E","Me gustaría comprender fenómenos físicos o químicos."],
+["aptitud","C","Se me facilita ordenar tareas y cumplir fechas."],
+["aptitud","C","Puedo revisar información con cuidado y detectar errores."],
+["aptitud","C","Me siento capaz de coordinar actividades con otras personas."],
+["aptitud","H","Sé escuchar sin interrumpir y tratar con respeto distintas opiniones."],
+["aptitud","H","Puedo explicar mis ideas de manera clara."],
+["aptitud","H","Me resulta natural colaborar y apoyar a otras personas."],
+["aptitud","A","Tengo facilidad para imaginar ideas originales."],
+["aptitud","A","Puedo expresar ideas con dibujos, palabras, imágenes u otros recursos."],
+["aptitud","A","Suelo notar detalles visuales y formas de mejorar una presentación."],
+["aptitud","S","Puedo mantener la atención cuando alguien necesita ayuda."],
+["aptitud","S","Soy cuidadosa al seguir instrucciones y procedimientos."],
+["aptitud","S","Me interesa aprender información científica sobre salud."],
+["aptitud","I","Me gusta probar distintas soluciones cuando algo no funciona."],
+["aptitud","I","Puedo comprender instrucciones técnicas y seguir pasos."],
+["aptitud","I","Tengo curiosidad por observar y explicar cómo ocurren las cosas."],
+["aptitud","D","Puedo mantener la calma cuando hay presión."],
+["aptitud","D","Me esfuerzo por actuar con responsabilidad y respetar reglas."],
+["aptitud","D","Puedo observar una situación y reconocer riesgos o problemas."],
+["aptitud","E","Se me facilita razonar con cantidades y relaciones."],
+["aptitud","E","Puedo analizar información antes de sacar conclusiones."],
+["aptitud","E","Disfruto resolver ejercicios que requieren lógica y precisión."]
+];
+
+const blankData=()=>({
+ favorites:[],
+ plan:{},
+ results:null,
+ points:0,
+ completedGames:[]
+});
+
+let data=blankData();
+let points=0;
+let completedGames=[];
+
+function $(id){return document.getElementById(id)}
+
+function entrar(){
+ try{
+  data=JSON.parse(localStorage.getItem("miRumboGuest"))||blankData();
+ }catch(e){data=blankData()}
+ points=data.points||0;
+ completedGames=data.completedGames||[];
+ go("home");
+ updateProgress();
+}
+
+function showScreen(id){
+ document.querySelectorAll("main>section").forEach(s=>s.classList.add("hidden"));
+ $(id).classList.remove("hidden");
+ window.scrollTo(0,0);
+}
+
+function go(id){
+ showScreen(id);
+ if(id==="choose")renderCareers();
+ if(id==="learn")renderInstitutions();
+ if(id==="opportunities")renderOpportunities();
+ if(id==="myspace")renderMySpace();
+ if(id==="plan")loadPlan();
+}
+
+function saveData(){
+ data.points=points;
+ data.completedGames=completedGames;
+ localStorage.setItem("miRumboGuest",JSON.stringify(data));
+ updateProgress();
+}
+
+function renderQuiz(){
+ const box=$("quizQuestions");
+ box.innerHTML="";
+ let last="";
+ questions.forEach((q,i)=>{
+  if(q[0]!==last){
+   last=q[0];
+   const h=document.createElement("h3");
+   h.textContent=last==="interes"?"Parte A · Intereses":"Parte B · Aptitudes que reconoces en ti";
+   box.appendChild(h);
+  }
+  const div=document.createElement("div");
+  div.className="question";
+  const p=document.createElement("p");
+  p.textContent=(i+1)+". "+q[2];
+  div.appendChild(p);
+  ["Sí","No","No estoy segura/o"].forEach((v,j)=>{
+   const label=document.createElement("label");
+   label.className="choice";
+   const input=document.createElement("input");
+   input.type="radio";
+   input.name="q"+i;
+   input.value=String(j===0?1:j===1?0:-1);
+   label.append(input,document.createTextNode(v));
+   div.appendChild(label);
+  });
+  box.appendChild(div);
+ });
+ updateQuizProgress();
+}
+
+function updateQuizProgress(){
+ const answered=questions.filter((q,i)=>document.querySelector('input[name="q'+i+'"]:checked')).length;
+ $("quizBar").style.width=(answered/questions.length*100)+"%";
+ $("quizCount").textContent=answered+" de "+questions.length+" preguntas respondidas.";
+}
+
+$("quizQuestions").addEventListener("change",updateQuizProgress);
+
+function clearQuiz(){
+ document.querySelectorAll("#quizQuestions input").forEach(x=>x.checked=false);
+ $("quizResult").innerHTML="";
+ updateQuizProgress();
+}
+
+function calculateResults(){
+ const scores={C:0,H:0,A:0,S:0,I:0,D:0,E:0};
+ const interests={...scores};
+ const aptitudes={...scores};
+ let unanswered=0;
+
+ questions.forEach((q,i)=>{
+  const a=document.querySelector('input[name="q'+i+'"]:checked');
+  if(!a){unanswered++;return}
+  if(a.value==="1"){
+   scores[q[1]]++;
+   (q[0]==="interes"?interests:aptitudes)[q[1]]++;
+  }
+ });
+
+ if(unanswered){
+  $("quizResult").innerHTML='<div class="notice">Te faltan '+unanswered+' respuestas. Completa el cuestionario para obtener tu resultado.</div>';
+  return;
+ }
+
+ const sorted=Object.entries(scores).sort((a,b)=>b[1]-a[1]);
+ data.results={
+  scores,
+  interests,
+  aptitudes,
+  top:sorted.slice(0,3).map(x=>x[0]),
+  date:new Date().toISOString()
+ };
+ saveData();
+
+ let html="<h3>Lo que reflejan tus respuestas</h3>";
+ html+="<p>Estas son las áreas con mayor afinidad según tus respuestas. Cada área reúne tres preguntas de intereses y tres de aptitudes.</p>";
+
+ sorted.slice(0,3).forEach(([k,v])=>{
+  html+='<div class="result-card"><strong>'+areaNames[k]+"</strong>";
+  html+="<p>"+v+" de 6 respuestas afirmativas.</p>";
+  html+='<span class="tag">Intereses: '+interests[k]+'/3</span>';
+  html+='<span class="tag">Aptitudes: '+aptitudes[k]+'/3</span></div>';
+ });
+
+ const top=sorted.slice(0,2).map(x=>x[0]);
+ const suggestions=careerData.filter(c=>top.includes(c.area)).slice(0,8);
+ html+="<h3>Carreras que puedes investigar</h3>";
+
+ suggestions.forEach(c=>{
+  html+='<div class="result-card"><strong>'+c.name+"</strong>";
+  html+="<p>"+c.description+"</p>";
+  html+='<span class="tag">'+areaNames[c.area]+"</span>";
+  html+='<button class="btn-light" onclick="showCareer(\''+encodeURIComponent(c.name)+"')\">Conocer carrera</button></div>";
+ });
+
+ html+='<div class="notice">Tu resultado es una orientación inicial, no una etiqueta. No determina qué carrera debes estudiar. Compara las opciones, conversa con personas del área y revisa los planes de estudio.</div>';
+ html+='<button class="btn-light" onclick="go(\'myspace\')">Ver mi espacio</button>';
+ $("quizResult").innerHTML=html;
+ updateProgress();
+}
+
+function showCareer(encoded){
+ const name=decodeURIComponent(encoded);
+ const c=careerData.find(x=>x.name===name);
+ if(!c)return;
+ $("careerDetail").innerHTML=
+  "<h3>"+c.name+"</h3>"+
+  "<p>"+c.description+"</p>"+
+  "<p><strong>Habilidades útiles:</strong> "+c.skills+"</p>"+
+  "<p><strong>Campos relacionados:</strong> "+c.paths+"</p>"+
+  '<span class="tag">'+areaNames[c.area]+"</span>"+
+  '<button onclick="toggleFavorite(\''+c.name+'\')">'+(data.favorites.includes(c.name)?"Quitar de favoritas":"Guardar en favoritas")+"</button>";
+ window.scrollTo(0,0);
+}
+
+function renderCareers(){
+ const term=$("careerSearch").value.toLowerCase();
+ const area=$("areaFilter").value;
+ const box=$("careerResults");
+ box.innerHTML="";
+ $("careerDetail").innerHTML="";
+
+ const list=careerData.filter(c=>
+  (area==="all"||c.area===area)&&
+  (c.name+" "+c.description+" "+areaNames[c.area]).toLowerCase().includes(term)
+ );
+
+ if(!list.length){
+  box.innerHTML='<p class="empty">No encontramos carreras con esa búsqueda.</p>';
+  return;
+ }
+
+ list.forEach(c=>{
+  const div=document.createElement("div");
+  div.className="career-card";
+  const h=document.createElement("h3");
+  h.textContent=c.name;
+  const p=document.createElement("p");
+  p.textContent=c.description;
+  const tag=document.createElement("span");
+  tag.className="tag";
+  tag.textContent=areaNames[c.area];
+  const detail=document.createElement("button");
+  detail.className="btn-light";
+  detail.textContent="Ver perfil";
+  detail.onclick=()=>showCareer(encodeURIComponent(c.name));
+  const fav=document.createElement("button");
+  fav.textContent=data.favorites.includes(c.name)?"♥ Favorita":"♡ Guardar";
+  fav.onclick=()=>toggleFavorite(c.name);
+  div.append(h,p,tag,detail,fav);
+  box.appendChild(div);
+ });
+}
+
+function toggleFavorite(name){
+ data.favorites=data.favorites.includes(name)
+  ?data.favorites.filter(x=>x!==name)
+  :[...data.favorites,name];
+ saveData();
+ renderCareers();
+}
+
+function renderInstitutions(){
+ const term=$("institutionSearch").value.toLowerCase();
+ const box=$("institutionResults");
+ box.innerHTML="";
+ const list=institutions.filter(x=>
+  (x.name+" "+x.type+" "+x.region+" "+x.description).toLowerCase().includes(term)
+ );
+
+ list.forEach(x=>{
+  const div=document.createElement("div");
+  div.className="result-card";
+  const h=document.createElement("h3");
+  h.textContent=x.name;
+  const p=document.createElement("p");
+  p.textContent=x.description;
+  const tag=document.createElement("span");
+  tag.className="tag";
+  tag.textContent=x.type+" · "+x.region;
+  const a=document.createElement("a");
+  a.href=x.url;
+  a.target="_blank";
+  a.rel="noopener";
+  a.textContent="Abrir sitio oficial";
+  div.append(h,p,tag,document.createElement("br"),a);
+  box.appendChild(div);
+ });
+
+ if(!list.length)box.innerHTML='<p class="empty">No hay coincidencias.</p>';
+}
+
+function renderOpportunities(){
+ const box=$("opportunityResults");
+ box.innerHTML="";
+ opportunities.forEach(([name,desc,url])=>{
+  const div=document.createElement("div");
+  div.className="result-card";
+  const h=document.createElement("h3");
+  h.textContent=name;
+  const p=document.createElement("p");
+  p.textContent=desc;
+  const a=document.createElement("a");
+  a.href=url;
+  a.target="_blank";
+  a.rel="noopener";
+  a.textContent="Consultar portal oficial";
+  div.append(h,p,a);
+  box.appendChild(div);
+ });
+}
+
+function loadPlan(){
+ const p=data.plan||{};
+ ["planName","planCareer","planInstitution","planGoal","planSteps","planDate"].forEach((id,i)=>{
+  $(""+id).value=p[["name","career","institution","goal","steps","date"][i]]||"";
+ });
+}
+
+function savePlan(){
+ data.plan={
+  name:$("planName").value.trim(),
+  career:$("planCareer").value.trim(),
+  institution:$("planInstitution").value.trim(),
+  goal:$("planGoal").value.trim(),
+  steps:$("planSteps").value.trim(),
+  date:$("planDate").value
+ };
+ saveData();
+ $("planMsg").textContent="Tu plan se guardó correctamente.";
+}
+
+function escapeHTML(s){
+ return String(s||"").replace(/[&<>"']/g,c=>({
+  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+ }[c]));
+}
+
+function renderMySpace(){
+ const f=$("favoriteList");
+ f.innerHTML=data.favorites.length
+  ?data.favorites.map(x=>'<span class="tag">'+escapeHTML(x)+"</span>").join("")
+  :'<p class="empty">Todavía no guardas carreras favoritas.</p>';
+
+ $("favCount").textContent=data.favorites.length;
+ $("gameCount").textContent=completedGames.length;
+
+ $("savedResults").innerHTML=data.results
+  ?data.results.top.map(k=>'<span class="tag">'+areaNames[k]+"</span>").join("")
+  :'<p class="empty">Todavía no has completado el cuestionario.</p>';
+
+ const p=data.plan||{};
+ $("savedPlan").innerHTML=p.career
+  ?"<p><b>Carrera:</b> "+escapeHTML(p.career)+"</p>"+
+   "<p><b>Institución:</b> "+escapeHTML(p.institution||"Por definir")+"</p>"+
+   "<p><b>Meta:</b> "+escapeHTML(p.goal||"Por definir")+"</p>"+
+   "<p><b>Pasos:</b><br>"+escapeHTML(p.steps||"Por definir").replace(/\n/g,"<br>")+"</p>"
+  :'<p class="empty">Todavía no has guardado tu plan.</p>';
+}
+
+function answerGame(n,choice){
+ if(completedGames.includes(n))return;
+ completedGames.push(n);
+ points+=10;
+ data.points=points;
+ data.completedGames=completedGames;
+
+ const messages={
+  1:["Organizarse y escuchar puede ayudar al equipo.","Investigar también es una buena forma de aportar.","Una idea creativa puede motivar al grupo."],
+  2:["Escuchar y acompañar es valioso.","La curiosidad impulsa el aprendizaje.","Crear permite expresar ideas de otras maneras."],
+  3:["Investigar requisitos convierte una meta en pasos.","Reconocer habilidades ayuda a conocerte.","Explorar instituciones abre nuevas posibilidades."]
+ };
+
+ $("game"+n+"msg").textContent=messages[n][choice]+" ¡Reto completado!";
+ $("game"+n).querySelectorAll("button").forEach(b=>b.disabled=true);
+ $("playPoints").textContent=points;
+ $("playBadges").textContent=completedGames.length;
+ saveData();
+}
+
+function resetGames(){
+ completedGames=[];
+ points=0;
+ data.points=0;
+ data.completedGames=[];
+ [1,2,3].forEach(n=>{
+  $("game"+n+"msg").textContent="";
+  $("game"+n).querySelectorAll("button").forEach(b=>b.disabled=false);
+ });
+ $("playPoints").textContent="0";
+ $("playBadges").textContent="0";
+ saveData();
+}
+
+function updateProgress(){
+ const count=
+  (data.results?1:0)+
+  (data.favorites.length?1:0)+
+  (data.plan&&data.plan.career?1:0)+
+  (completedGames.length?1:0)+
+  (data.plan&&data.plan.steps?1:0);
+
+ $("progressBar").style.width=(count/5*100)+"%";
+ $("progressText").textContent=Math.min(count,5)+" de 5 pasos iniciados";
+ $("playPoints").textContent=points;
+ $("playBadges").textContent=completedGames.length;
+}
+
+function exportMyData(){
+ const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
+ const url=URL.createObjectURL(blob);
+ const a=document.createElement("a");
+ a.href=url;
+ a.download="mi-rumbo-mis-datos.json";
+ a.click();
+ URL.revokeObjectURL(url);
+}
+
+renderQuiz();
+</script>
+
+</body>
+</html>
