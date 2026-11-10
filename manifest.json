@@ -1,0 +1,33 @@
+{
+  "id": "./",
+  "name": "Mi Rumbo 2.0",
+  "short_name": "Mi Rumbo",
+  "description": "Conoce quién eres, para descubrir dónde vas.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f7f3e9",
+  "theme_color": "#142b50",
+  "lang": "es-NI",
+  "icons": [
+    {
+      "src": "./icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
